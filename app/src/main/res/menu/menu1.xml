@@ -8,8 +8,6 @@
         android:title="Search"
         app:showAsAction="ifRoom"
         />
-
-
     <item
         android:id="@+id/notifications"
         android:icon="@drawable/ic_launcher_background"
