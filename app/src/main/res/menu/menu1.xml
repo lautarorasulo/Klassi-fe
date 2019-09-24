@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/accounticon"
         android:title="Search"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/notifications"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/notificacion"
         android:title="Notifications"
         app:showAsAction="ifRoom"
         />
