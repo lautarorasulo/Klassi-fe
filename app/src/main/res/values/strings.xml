@@ -14,6 +14,9 @@
     <string name="log_regmessage">Eres nuevo? Registrate</string>
     <string name="log_g">G</string>
     <string name="log_f">F</string>
+    <string name="log_hint_user">Ingresa Usuario</string>
+    <string name="log_hint_pass">Ingresa contraseña</string>
+
 
 
 </resources>
