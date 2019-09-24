@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="Search"
+        android:id="@+id/User"
+        android:icon="@drawable/baseline_account_circle_black_18dp"
+        android:title="Perfil Usuario"
         app:showAsAction="ifRoom"
         />
 
@@ -16,7 +16,6 @@
         android:title="Notifications"
         app:showAsAction="ifRoom"
         />
-
     <item
         android:id="@+id/share"
         android:title="share"
