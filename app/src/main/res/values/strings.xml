@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Klassi-fe</string>
+
+    //Pantalla Register
+    <string name="str_name">Nombre</string>
+    <string name="str_scndname">Apellido</string>
+    <string name="str_email">Email</string>
+    <string name="str_dni">DNI</string>
+    <string name="str_select">Seleccione escolaridad</string>
+    <string name="str_btnreg">Registrarse</string>
+
+    <string name="str_error">Este campo es obligatorio</string>
+
+
+
 </resources>

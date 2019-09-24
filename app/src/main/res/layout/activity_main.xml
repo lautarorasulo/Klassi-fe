@@ -4,4 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/str_name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273" />
+
+    <EditText
+        android:id="@+id/txt_scndname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/str_scndname"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/txt_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+    <EditText
+        android:id="@+id/txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/str_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/txt_dni"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_dni"
+        app:layout_constraintTop_toBottomOf="@+id/txt_dni" />
+
+    <EditText
+        android:id="@+id/txt_dni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/str_dni"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/txt_scndname"
+        app:layout_constraintStart_toStartOf="@+id/txt_scndname"
+        app:layout_constraintTop_toBottomOf="@+id/txt_scndname" />
+
+    <Spinner
+        android:id="@+id/txt_esc"
+        android:layout_width="213dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_email"
+        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+
+    <Button
+        android:id="@+id/btn_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="388dp"
+        android:text="@string/str_btnreg"
+        app:layout_constraintEnd_toEndOf="@+id/txt_esc"
+        app:layout_constraintStart_toStartOf="@+id/txt_esc"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+</android.support.constraint.ConstraintLayout>
