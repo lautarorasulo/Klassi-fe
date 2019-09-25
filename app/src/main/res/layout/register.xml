@@ -77,6 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="388dp"
+        android:onClick="Validar"
         android:text="@string/str_btnreg"
         app:layout_constraintEnd_toEndOf="@+id/txt_esc"
         app:layout_constraintStart_toStartOf="@+id/txt_esc"
