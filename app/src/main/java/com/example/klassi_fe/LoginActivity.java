@@ -51,11 +51,11 @@ public class LoginActivity extends AppCompatActivity {
         //checkea el Login, verificando los datos y enviando los datos al backend
         Boolean readytosend;
         readytosend = true;
-        if(user.toString().isEmpty() && readytosend == true){
+        if(user.toString().isEmpty() && readytosend){
             Toast.makeText(getApplicationContext(),"Usuario Vacio",Toast.LENGTH_SHORT).show();
             readytosend = false;
         }
-        if(pass.toString().isEmpty() && readytosend == true){
+        if(pass.toString().isEmpty() && readytosend){
             Toast.makeText(getApplicationContext(),"Password Vacio",Toast.LENGTH_SHORT).show();
             readytosend = false;
         }
