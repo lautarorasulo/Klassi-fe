@@ -1,19 +1,25 @@
 package com.example.klassi_fe;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -138,5 +144,51 @@ public class PerfilAlumno extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu1,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_User:
+                if(!this.getLocalClassName().equals("PerfilAlumno")){
+                    Intent intent = new Intent(this,PerfilAlumno.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.menu_notifications:
+
+                break;
+            case R.id.menu_share:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Klassi es una aplicacion hecha con amor <3");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+                break;
+            case R.id.menu_aboutUs:
+                showAddItemDialog(PerfilAlumno.this);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("About Us")
+                .setMessage("Klassi es una aplicacion hecha por los alumnos de ORT belgrano," +
+                        "los integrantes son: /n Jorge ---  Santi --- Jonas --- Lautaro")
+                .setView(taskEditText)
+                //.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                //    @Override
+                //    public void onClick(DialogInterface dialog, int which) {
+                //        String task = String.valueOf(taskEditText.getText());
+                //    }
+                //})
+                .setNegativeButton("Gracias!!", null)
+                .create();
+        dialog.show();
     }
 }
