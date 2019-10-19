@@ -37,10 +37,14 @@ public class PerfilAlumno extends AppCompatActivity {
 
     ImageView perfil;
 
+    MenuInteracions minteraction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_alumno);
+
+        minteraction = new MenuInteracions();
 
         nombre = findViewById(R.id.perfal_txt_nombre);
         edad = findViewById(R.id.perfal_txt_edad);
@@ -57,7 +61,7 @@ public class PerfilAlumno extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
-        cargoperfil();
+        CargoPerfil();
 
 
         setimage.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +77,7 @@ public class PerfilAlumno extends AppCompatActivity {
         startActivityForResult(intent,0);
     }
 
-    private void cargoperfil() {
+    private void CargoPerfil() {
         //en este metodo voy a hacer la llamada a la API para cargar el perfil cargado en el backend
         //una vez cargado, voy a reflejarlo en los Textview
         //Tambien voy a buscar si esta la imagen del usuario grabada en el dispositivo. en caso
@@ -150,45 +154,19 @@ public class PerfilAlumno extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-                if(!this.getLocalClassName().equals("PerfilAlumno")){
-                    Intent intent = new Intent(this,PerfilAlumno.class);
-                    startActivity(intent);
-                }
+                minteraction.irPerfi(this.getLocalClassName(),this);
                 break;
             case R.id.menu_notifications:
 
                 break;
             case R.id.menu_share:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Klassi es una aplicacion hecha con amor <3");
-                sendIntent.setType("text/plain");
-
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
+                minteraction.hacerShare("Shareado desde perfil alumnno",this);
                 break;
             case R.id.menu_aboutUs:
-                showAddItemDialog(PerfilAlumno.this);
+                minteraction.mostrarAboutUs("",this);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    private void showAddItemDialog(Context c) {
-        final EditText taskEditText = new EditText(c);
-        AlertDialog dialog = new AlertDialog.Builder(c)
-                .setTitle("About Us")
-                .setMessage("Klassi es una aplicacion hecha por los alumnos de ORT belgrano," +
-                        "los integrantes son: /n Jorge ---  Santi --- Jonas --- Lautaro")
-                .setView(taskEditText)
-                //.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                //    @Override
-                //    public void onClick(DialogInterface dialog, int which) {
-                //        String task = String.valueOf(taskEditText.getText());
-                //    }
-                //})
-                .setNegativeButton("Gracias!!", null)
-                .create();
-        dialog.show();
     }
 }
