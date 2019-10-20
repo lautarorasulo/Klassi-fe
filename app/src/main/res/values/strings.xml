@@ -5,4 +5,18 @@
 
     //String de launchers
     <string name="appname">Klassi</string>
+
+    //String de Login
+    <string name="log_welcome">Bienvenido</string>
+    <string name="log_user">Usuario</string>
+    <string name="log_password">Contraseña</string>
+    <string name="log_button_go">Login</string>
+    <string name="log_regmessage">Eres nuevo? Registrate</string>
+    <string name="log_g">G</string>
+    <string name="log_f">F</string>
+    <string name="log_hint_user">Ingresa Usuario</string>
+    <string name="log_hint_pass">Ingresa contraseña</string>
+
+
+
 </resources>
