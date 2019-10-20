@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppThemeAB" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="fontStyleAB" parent="AppThemeAB">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+
+
 </resources>

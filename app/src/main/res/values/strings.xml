@@ -2,7 +2,8 @@
     <string name="app_name">Klassi-fe</string>
 
 
-
+    //String Genericos
+    <string name="gen_spaces"> </string>
     //String de launchers
     <string name="appname">Klassi</string>
 
@@ -18,5 +19,6 @@
     <string name="log_hint_pass">Ingresa contraseña</string>
 
 
-
+    //String de perfil
+    <string name="perfal_button"> CambiaImagen</string>
 </resources>
