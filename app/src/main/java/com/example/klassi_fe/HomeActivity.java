@@ -10,7 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     MenuInteracions minteraction;
 
@@ -42,6 +42,10 @@ public class home extends AppCompatActivity {
 
         //voy a buscar en el backend si existen clases diponibles, en caso que existan voy a llenar
         //el Table layout con las clases del alumno.
+
+
+
+
         tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         TextView txt = new TextView(this);
@@ -54,6 +58,20 @@ public class home extends AppCompatActivity {
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
 
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+
+        // en cuanto se resuma la ejecucion de esta pantalla se va a actulizar nuevamente la lista
+        super.onResume();
+        fillClasesOnTable();
 
     }
 

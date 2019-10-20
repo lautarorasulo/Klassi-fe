@@ -51,17 +51,19 @@ public class LoginActivity extends AppCompatActivity {
         //checkea el Login, verificando los datos y enviando los datos al backend
         Boolean readytosend;
         readytosend = true;
-        if(user.toString().isEmpty() && readytosend){
+        if(user.toString().isEmpty()){
             Toast.makeText(getApplicationContext(),"Usuario Vacio",Toast.LENGTH_SHORT).show();
             readytosend = false;
         }
-        if(pass.toString().isEmpty() && readytosend){
+        if(pass.toString().isEmpty()){
             Toast.makeText(getApplicationContext(),"Password Vacio",Toast.LENGTH_SHORT).show();
             readytosend = false;
         }
 
         if (readytosend){
             //aca se debe ejecutar el llamado al backend
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
 
     }
