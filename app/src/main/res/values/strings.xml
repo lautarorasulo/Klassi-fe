@@ -21,4 +21,11 @@
 
     //String de perfil
     <string name="perfal_button"> CambiaImagen</string>
+
+
+    //String de Home
+    <string name="home_btntxt">Haz click aqui para generar una Clase</string>
+    <string name="home_prox">Aqui estan tus proximas clases</string>
+    <string name="home_welcome">Bienvenido a tu Home! @usuario </string>
+
 </resources>
