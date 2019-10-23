@@ -28,4 +28,16 @@
     <string name="home_prox">Aqui estan tus proximas clases</string>
     <string name="home_welcome">Bienvenido a tu Home! @usuario </string>
 
+    //String de Busqueda
+    <string name="busqueda_welcome">Selecciona las opciones para iniciar tu busqueda de profesores</string>
+    <string name="busqueda_button">Busqueda</string>
+
+    //String de Profesores
+    <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>
+
+
+    //String de Clases
+    
+
+
 </resources>

@@ -1,11 +1,14 @@
 package com.example.klassi_fe;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
 
     TableLayout table;
     TableRow tablerow;
+
+    Button botonbusqueda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +38,19 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
+        botonbusqueda = (Button) findViewById(R.id.home_btn_Klassi);
 
         fillClasesOnTable();
+
+        botonbusqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, BusquedaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
@@ -66,14 +82,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    @Override
-    protected void onResume() {
 
-        // en cuanto se resuma la ejecucion de esta pantalla se va a actulizar nuevamente la lista
-        super.onResume();
-        fillClasesOnTable();
-
-    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

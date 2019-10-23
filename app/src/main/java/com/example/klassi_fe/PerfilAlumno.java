@@ -100,7 +100,7 @@ public class PerfilAlumno extends AppCompatActivity {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        Log.d("imagen path de busqueda", "cargoperfil: "+ imagepath);
+        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
 
         if(imagenperfil != null ){
             perfil.setImageBitmap(imagenperfil);
