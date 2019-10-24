@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class Register extends AppCompatActivity {
 
 
-    EditText txt_name, txt_secndname, txt_email, txt_dni;
+    EditText txt_name, txt_secndname, txt_email, txt_pwd;
     Button btn_reg;
     Intent intent;
 
@@ -23,8 +23,8 @@ public class Register extends AppCompatActivity {
 
         txt_name = findViewById(R.id.txt_name);
         txt_secndname = findViewById(R.id.txt_scndname);
-        txt_email = findViewById(R.id.txt_dni);
-        txt_dni = findViewById(R.id.txt_dni);
+        txt_email = findViewById(R.id.txt_pwd);
+        txt_pwd = findViewById(R.id.txt_pwd);
 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 
@@ -55,8 +55,8 @@ public class Register extends AppCompatActivity {
         if(txt_email.getText().toString().isEmpty()){
             txt_email.setError(getString(R.string.str_error));
         }
-        if(txt_dni.getText().toString().isEmpty()){
-            txt_dni.setError(getString(R.string.str_error));
+        if(txt_pwd.getText().toString().isEmpty()){
+            txt_pwd.setError(getString(R.string.str_error));
         }
     }
 }

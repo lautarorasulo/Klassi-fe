@@ -5,17 +5,24 @@
     <string name="str_name">Nombre</string>
     <string name="str_scndname">Apellido</string>
     <string name="str_email">Email</string>
-    <string name="str_dni">DNI</string>
+    <string name="str_pwd">Contraseña</string>
     <string name="str_select">Seleccione escolaridad</string>
     <string name="str_btnreg">Registrarse</string>
 
+    //Msg error validación register
     <string name="str_error">Este campo es obligatorio</string>
-
-
-
 
 
 
     //String de launchers
     <string name="appname">Klassi</string>
+
+    //Pantalla perfil profesor
+    <string name="str_p_name">Nombre</string>
+    <string name="str_p_apellido">Apellido</string>
+    <string name="str_p_localidad">Localidad</string>
+    <string name="str_p_btnmsg">MENSAJE</string>
+    <string name="str_p_btnmts">VER MATERIAS</string>
+
+
 </resources>
