@@ -30,7 +30,7 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clases_pendiente_dos_botones);
 
-        DATA_URL2 = "http://192.168.100.116:3001/api/clases/5daf94c01c041307541d0232";
+        DATA_URL2 = "http://PONER URL VALIDA ACA:3001/api/clases/5daf94c01c041307541d0232";
         listView = (ListView) findViewById(R.id.lista_pendientes_dos_botones);
 
         invocarServicio();
