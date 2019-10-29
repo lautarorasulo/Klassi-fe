@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 public class Register extends AppCompatActivity {
 
@@ -13,6 +14,7 @@ public class Register extends AppCompatActivity {
     EditText txt_name, txt_secndname, txt_email, txt_pwd;
     Button btn_reg;
     Intent intent;
+    RadioButton rb1, rb2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class Register extends AppCompatActivity {
         txt_secndname = findViewById(R.id.txt_scndname);
         txt_email = findViewById(R.id.txt_pwd);
         txt_pwd = findViewById(R.id.txt_pwd);
+        rb1 = findViewById(R.id.radioButton);
+        rb2 = findViewById(R.id.radioButton2);
 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 

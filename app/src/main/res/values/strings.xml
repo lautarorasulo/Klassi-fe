@@ -13,7 +13,6 @@
     <string name="str_error">Este campo es obligatorio</string>
 
 
-
     //String de launchers
     <string name="appname">Klassi</string>
 
@@ -22,7 +21,29 @@
     <string name="str_p_apellido">Apellido</string>
     <string name="str_p_localidad">Localidad</string>
     <string name="str_p_btnmsg">MENSAJE</string>
+    <string name="str_p_btnhrs">Horarios Disponibles</string>
     <string name="str_p_btnmts">VER MATERIAS</string>
+    <string name="str_p_rbtnpr">Profesor</string>
+    <string name="str_p_rbtnal">Alumno</string>
+
+    //Pantalla horarios profesor
+    <string-array name="array_nr">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    //Pantalla confirmación 1
+    <string name="str_p_cnf1_nombre">Nombre</string>
+    <string name="str_p_cnf1_apellido">Apellido</string>
+    <string name="str_p_cnf1_localidad">Localidad</string>
+    <string name="str_p_cnf1btn">Confirmar</string>
+
+    <string name="str_horaej">19:45</string>
+    <string name="str_lugarej">Brandsen 805</string>
 
 
 </resources>

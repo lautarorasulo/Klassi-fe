@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".confirmacion2">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="411dp"
+        android:layout_height="275dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <LinearLayout
+            android:layout_width="202dp"
+            android:layout_height="732dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars[0]" />
+
+            <TextView
+                android:id="@+id/txt_cnf2_nombrea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_p_name" />
+
+            <TextView
+                android:id="@+id/txt_cnf2_apellidoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_scndname" />
+
+            <TextView
+                android:id="@+id/txt_localidada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_p_localidad" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars[0]" />
+
+            <TextView
+                android:id="@+id/txt_cnf2_nombrep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_p_name" />
+
+            <TextView
+                android:id="@+id/txt_cnf2_apellidop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_p_apellido" />
+
+            <TextView
+                android:id="@+id/txt_localidadp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_p_localidad" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_horario"
+        android:layout_width="127dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="128dp"
+        android:text="@string/str_horaej"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/txt_lugar"
+        android:layout_width="193dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/str_lugarej"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_horario"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="@+id/txt_horario"
+        app:layout_constraintTop_toBottomOf="@+id/txt_horario" />
+
+    <Button
+        android:id="@+id/btn_confirmacion"
+        android:layout_width="126dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/str_p_cnf1btn"
+        app:layout_constraintEnd_toEndOf="@+id/txt_lugar"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="@+id/txt_lugar"
+        app:layout_constraintTop_toBottomOf="@+id/txt_lugar" />
+</android.support.constraint.ConstraintLayout>
