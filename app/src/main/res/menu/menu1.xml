@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
         android:icon="@drawable/accounticon"
-        android:title="Search"
+        android:id="@+id/menu_User"
+        android:title="Perfil Usuario"
         app:showAsAction="ifRoom"
         />
     <item
-        android:id="@+id/notifications"
+        android:id="@+id/menu_notifications"
         android:icon="@drawable/notificacion"
         android:title="Notifications"
         app:showAsAction="ifRoom"
         />
 
     <item
-        android:id="@+id/share"
+        android:id="@+id/menu_share"
         android:title="share"
         app:showAsAction="never"
         />
     <item
-        android:id="@+id/aboutUs"
+        android:id="@+id/menu_aboutUs"
         android:title="AboutUs"
         app:showAsAction="never"
         />

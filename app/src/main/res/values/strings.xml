@@ -12,7 +12,8 @@
     //Msg error validación register
     <string name="str_error">Este campo es obligatorio</string>
 
-
+    //String Genericos
+    <string name="gen_spaces"> </string>
     //String de launchers
     <string name="appname">Klassi</string>
 
@@ -44,6 +45,40 @@
 
     <string name="str_horaej">19:45</string>
     <string name="str_lugarej">Brandsen 805</string>
+
+
+
+    //String de Login
+    <string name="log_welcome">Bienvenido</string>
+    <string name="log_user">Usuario</string>
+    <string name="log_password">Contraseña</string>
+    <string name="log_button_go">Login</string>
+    <string name="log_regmessage">Eres nuevo? Registrate</string>
+    <string name="log_g">G</string>
+    <string name="log_f">F</string>
+    <string name="log_hint_user">Ingresa Usuario</string>
+    <string name="log_hint_pass">Ingresa contraseña</string>
+
+
+    //String de perfil
+    <string name="perfal_button"> CambiaImagen</string>
+
+
+    //String de Home
+    <string name="home_btntxt">Haz click aqui para generar una Clase</string>
+    <string name="home_prox">Aqui estan tus proximas clases</string>
+    <string name="home_welcome">Bienvenido a tu Home! @usuario </string>
+
+    //String de Busqueda
+    <string name="busqueda_welcome">Selecciona las opciones para iniciar tu busqueda de profesores</string>
+    <string name="busqueda_button">Busqueda</string>
+
+    //String de Profesores
+    <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>
+
+
+    //String de Clases
+
 
 
 </resources>
