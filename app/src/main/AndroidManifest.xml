@@ -9,24 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".confirmacion2"></activity>
-        <activity android:name=".confirmacion1" />
-        <activity android:name=".horarios" />
-        <activity android:name=".perfil_profesor" />
+        <activity android:name=".Confirmacion2Activity"></activity>
+        <activity android:name=".Confirmacion1Activity"></activity>
+        <activity android:name=".HorariosActivity"></activity>
+        <activity android:name=".PerfilProfesorActivity"></activity>
         <activity android:name=".ProfesoresActivity"></activity>
-        <activity android:name=".ClasesActivity" />
-        <activity android:name=".BusquedaActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".PerfilAlumno" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".ClasesActivity"></activity>
+        <activity android:name=".BusquedaActivity" ></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".PerfilAlumno"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MainActivity">
-        <activity android:name=".Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterActivity"></activity>
     </application>
-
 </manifest>

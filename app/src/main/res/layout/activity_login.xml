@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/log_login_but"
+        android:id="@+id/reg_reg_btn"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -16,7 +16,7 @@
         android:text="@string/log_button_go"
         app:layout_constraintBottom_toTopOf="@+id/log_register2_but"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log_pass_txt"
+        app:layout_constraintTop_toBottomOf="@+id/reg_mail_txt"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/log_register2_but"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/nomod_regmess" />
+        app:layout_constraintStart_toEndOf="@+id/log_register2_but3" />
 
     <Button
         android:id="@+id/log_register2_but"
@@ -41,10 +41,10 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/log_register_but" />
 
-    <TextView
-        android:id="@+id/nomod_regmess"
-        android:layout_width="157dp"
-        android:layout_height="19dp"
+    <Button
+        android:id="@+id/log_register2_but3"
+        android:layout_width="165dp"
+        android:layout_height="41dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/log_regmessage"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/log_user_txt"
+        android:id="@+id/reg_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -66,7 +66,7 @@
         android:autofillHints="" />
 
     <EditText
-        android:id="@+id/log_pass_txt"
+        android:id="@+id/reg_mail_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -95,7 +95,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/log_password"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/log_pass_txt"
+        app:layout_constraintEnd_toStartOf="@+id/reg_mail_txt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/nomod_user"
         app:layout_constraintTop_toBottomOf="@+id/nomod_user" />

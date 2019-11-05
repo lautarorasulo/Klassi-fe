@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Klassi-fe</string>
+    <string name="app_name">Klassi</string>
 
     //Pantalla Register
     <string name="str_name">Nombre</string>
@@ -8,6 +8,8 @@
     <string name="str_pwd">Contraseña</string>
     <string name="str_select">Seleccione escolaridad</string>
     <string name="str_btnreg">Registrarse</string>
+    <string name="str_btnal">Alumno</string>
+    <string name="str_btnprof">Profesor</string>
 
     //Msg error validación register
     <string name="str_error">Este campo es obligatorio</string>
@@ -17,25 +19,11 @@
     //String de launchers
     <string name="appname">Klassi</string>
 
-    //Pantalla perfil profesor
-    <string name="str_p_name">Nombre</string>
-    <string name="str_p_apellido">Apellido</string>
-    <string name="str_p_localidad">Localidad</string>
-    <string name="str_p_btnmsg">MENSAJE</string>
-    <string name="str_p_btnhrs">Horarios Disponibles</string>
-    <string name="str_p_btnmts">VER MATERIAS</string>
-    <string name="str_p_rbtnpr">Profesor</string>
-    <string name="str_p_rbtnal">Alumno</string>
 
     //Pantalla horarios profesor
-    <string-array name="array_nr">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
+    <string name="btn_horario">Horarios</string>
+    <string name="btn_materia">Materias</string>
+    <string name="btn_confirmar">Confirmar</string>
 
     //Pantalla confirmación 1
     <string name="str_p_cnf1_nombre">Nombre</string>
@@ -43,8 +31,9 @@
     <string name="str_p_cnf1_localidad">Localidad</string>
     <string name="str_p_cnf1btn">Confirmar</string>
 
-    <string name="str_horaej">19:45</string>
-    <string name="str_lugarej">Brandsen 805</string>
+    //Pantalla confirmacion 2
+    <string name="str_p_cnf2btn">Cancelar</string>
+
 
 
 
@@ -78,6 +67,8 @@
 
 
     //String de Clases
+
+
 
 
 

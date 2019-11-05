@@ -3,8 +3,6 @@ package com.example.klassi_fe;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,15 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-public class PerfilAlumno extends AppCompatActivity {
+public class Confirmacion1Activity extends AppCompatActivity {
 
-    TextView nombre,edad,zona,ultimas_materias,quieroaprender,buscoprofe;
+    TextView nombre,mail,comentarios;
 
     Toolbar toolbar;
 
-    Button setimage;
+    Intent intent;
+
+    Button confirmar;
 
     ImageView perfil;
 
@@ -35,18 +34,16 @@ public class PerfilAlumno extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil_alumno);
+        setContentView(R.layout.activity_confirmacion1);
 
         minteraction = new MenuInteracions();
 
         nombre = findViewById(R.id.pnt_cnf2_nomal);
-        edad = findViewById(R.id.perprof_txt_apellido);
-        zona= findViewById(R.id.pnt_cnf2_mailal);
-        ultimas_materias = findViewById(R.id.pnt_cnf2_lugar);
-        quieroaprender= findViewById(R.id.perprof_txt_setearHorario);
-        buscoprofe = findViewById(R.id.perfal_txt_buscoprofe);
 
-        setimage = (Button) findViewById(R.id.perprof_btn_horario);
+        mail = findViewById(R.id.pnt_cnf2_mailal);
+        comentarios = findViewById(R.id.pnt_cnf2_lugar);
+
+        confirmar = (Button) findViewById(R.id.pnt_cnf2_confirmar);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
 
@@ -57,18 +54,14 @@ public class PerfilAlumno extends AppCompatActivity {
         CargoPerfil();
 
 
-        setimage.setOnClickListener(new View.OnClickListener() {
+        confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CrearImagen();
+                Confirmar();
             }
         });
     }
 
-    private void CrearImagen() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,0);
-    }
 
     private void CargoPerfil() {
         //en este metodo voy a hacer la llamada a la API para cargar el perfil cargado en el backend
@@ -78,10 +71,8 @@ public class PerfilAlumno extends AppCompatActivity {
 
 
         nombre.setText("Nombre: "+ "juan perez");
-        edad.setText("Edad: "+ "10");
-        zona.setText("zona: "+"caballito");
-        quieroaprender.setText("Materias: " + "lengua, matematicas, etc");
-        buscoprofe.setText("Busco profesor:" + "que enseñe de manera lenta y efectiva");
+        mail.setText("Mail: " + "asd@asd.com");
+
 
         //busco Imagen en File system
         File file;
@@ -103,37 +94,9 @@ public class PerfilAlumno extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-        Log.d("asd", "onActivityResult: llego aca");
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        perfil.setImageBitmap(bitmap);
-        SaveImage(bitmap);
-    }
-
-    private void SaveImage(Bitmap imagenasalvar) {
-
-        // salva la imagen que el usuario acaba de sacar.
-        File file;
-        file = getFilesDir();
-        File savefile = new File(file, "imagen"+123+".jpg");
-        if(savefile.exists()){
-            savefile.delete();
-        }
-        try{
-            FileOutputStream out = new FileOutputStream(savefile);
-            imagenasalvar.compress(Bitmap.CompressFormat.JPEG,90,out);
-            out.close();
-            Log.d("Image de save", "SaveImage: Grabo la imagen???"+savefile.toString());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
+    public void Confirmar(){
+        intent = new Intent(Confirmacion1Activity.this , Confirmacion2Activity.class);
+        startActivity(intent);
     }
 
     @Override

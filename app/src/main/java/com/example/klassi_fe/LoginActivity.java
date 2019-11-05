@@ -8,13 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class LoginActivity extends AppCompatActivity {
 
 
     TextView user,pass;
-    Button login, register;
+    Button login, register, register2;
 
 
     @Override
@@ -23,11 +21,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        user = (TextView) findViewById(R.id.log_user_txt);
-        pass = (TextView) findViewById(R.id.log_pass_txt);
+        user = (TextView) findViewById(R.id.reg_name_txt);
+        pass = (TextView) findViewById(R.id.reg_mail_txt);
 
-        login = (Button) findViewById(R.id.log_login_but);
+        login = (Button) findViewById(R.id.reg_reg_btn);
         register = (Button) findViewById(R.id.log_register_but);
+        register2 = (Button) findViewById(R.id.log_register2_but3);
 
 
         login.setOnClickListener(new View.OnClickListener(){
@@ -40,9 +39,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //hay que agregar el intent al register
-                //Intent intent = new Intent(LoginActivity.this, Register.class)
+                //Intent intent = new Intent(LoginActivity.this, RegisterActivity.class)
             }
         }));
+
+        register2.setOnClickListener((new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        }));
+
 
 
     }

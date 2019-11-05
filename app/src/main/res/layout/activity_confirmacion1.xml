@@ -1,59 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".confirmacion1">
+    tools:context=".PerfilAlumno"
+    android:theme="@style/fontStyleAB">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="90dp"
-        tools:srcCompat="@tools:sample/avatars[0]" />
-
-    <TextView
-        android:id="@+id/p_cnf1_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="@string/str_p_cnf1_nombre"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <TextView
-        android:id="@+id/p_cnf1_apellido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="@string/str_p_cnf1_apellido"
-        app:layout_constraintEnd_toEndOf="@+id/p_cnf1_nombre"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/p_cnf1_nombre"
-        app:layout_constraintTop_toBottomOf="@+id/p_cnf1_nombre" />
-
-    <TextView
-        android:id="@+id/p_cnf1_localidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="@string/str_p_cnf1_localidad"
-        app:layout_constraintEnd_toEndOf="@+id/p_cnf1_apellido"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="@+id/p_cnf1_apellido"
-        app:layout_constraintTop_toBottomOf="@+id/p_cnf1_apellido" />
 
     <Button
-        android:id="@+id/btn_cnf1"
+        android:id="@+id/pnt_cnf2_confirmar"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="172dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/btn_confirmar"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_lugar"
+        app:layout_constraintStart_toStartOf="@+id/pnt_cnf2_lugar"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_lugar" />
+
+    <ImageView
+        android:id="@+id/pnt_cnf2_imgprof"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar"
+        tools:srcCompat="@tools:sample/avatars[1]" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_nomal"
+        android:layout_width="148dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintEnd_toStartOf="@+id/pnt_cnf2_imgprof"
+        app:layout_constraintHorizontal_bias="0.366"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_mailal"
+        android:layout_width="149dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_nomal"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="@+id/pnt_cnf2_nomal"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal"
+        app:layout_constraintVertical_bias="0.208" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="@string/str_p_cnf1btn"
-        app:layout_constraintEnd_toEndOf="@+id/p_cnf1_localidad"
-        app:layout_constraintStart_toStartOf="@+id/p_cnf1_localidad"
-        app:layout_constraintTop_toBottomOf="@+id/p_cnf1_localidad" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="322dp" />
+
+    <include
+        android:id="@+id/maintoolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_lugar"
+        android:layout_width="304dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="292dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </android.support.constraint.ConstraintLayout>

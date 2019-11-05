@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class horarios extends AppCompatActivity {
+public class HorariosActivity extends AppCompatActivity {
 
     private ListView listView;
 
@@ -26,12 +26,12 @@ public class horarios extends AppCompatActivity {
         setContentView(R.layout.activity_horarios);
 
         init();
-        mostrarListViewMultipleChoiceChecked();
+        //mostrarListViewMultipleChoiceChecked();
     }
 
     private void init(){this.listView = findViewById(R.id.ListView);}
 
-
+    /*
     private void mostrarListViewMultipleChoiceChecked(){
         List<String> lista =
                 new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_nr)));
@@ -50,6 +50,7 @@ public class horarios extends AppCompatActivity {
             }
         });
     }
+    */
 
 
 }
