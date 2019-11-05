@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,11 @@ public class BusquedaActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    Materia materia;
+    List<Materia> materias;
+    List<Zona> myZonas;
+
+
     Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
     Button busqueda, datepicker;
 
@@ -62,6 +68,9 @@ public class BusquedaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_busqueda);
 
         minteraction = new MenuInteracions();
+
+        materias = new ArrayList<Materia>();
+        myZonas = new ArrayList<Zona>();
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
@@ -140,6 +149,7 @@ public class BusquedaActivity extends AppCompatActivity {
         pos = spinnermateria.getSelectedItemPosition();
         valormateria = spinnermateria.getItemAtPosition(pos).toString();
 
+
         pos = spinnerzona.getSelectedItemPosition();
         valorzona = spinnerzona.getItemAtPosition(pos).toString();
 
@@ -151,42 +161,68 @@ public class BusquedaActivity extends AppCompatActivity {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.getA), new Response.Listener<String>() {
+        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postClase), null, new Response.Listener<JSONObject>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.postClase), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(), "La clase se creo correctamente", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                Log.d("asdasd", "onResponse: "+response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }){
-            protected  Map<String, String> getParams(){
+        }){protected Map<String, String> getParams() {
+                //buscarIdZona((ArrayList<Zona>) myZonas, valorzona)
+                //buscarId((ArrayList<Materia>) materias, valormateria )
                 Map<String, String> params = new HashMap<>();
-                params.put("zona", valorzona);
-                params.put("materia", valormateria);
+                params.put("idZona", "5daf94c01c041307541d0217");
+                params.put("idMateria", "5daf94c013c04107541d0223");
                 params.put("fecha", valorfecha);
                 params.put("hora", valorhora);
-
+                Log.d("asdasdasda", "asdasdasdas" + params);
                 return params;
             }
         };
+
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
     }
 
+    public String buscarId(ArrayList<Materia> myArray, String materiaSeleccionada ){
+        boolean encontro=true;
+        int i=0;
+        while(i< myArray.size() && encontro){
+            if(myArray.get(i).getNombre().equals(materiaSeleccionada)){
+                return myArray.get(i).getId();
+            }else{
+               i++;
+            }
+            return "NoSeEncontro";
+        }
 
+        return null;
+    }
 
+    public String buscarIdZona(ArrayList<Zona> myArray, String materiaSeleccionada ){
+        boolean encontro=true;
+        int i=0;
+        while(i< myArray.size() && encontro){
+            if(myArray.get(i).getNombre().equals(materiaSeleccionada)){
+                return myArray.get(i).get_id();
+            }else{
+                i++;
+            }
+            return "NoSeEncontro";
+        }
+
+        return null;
+    }
 
 
     private void rellenarSpinners() {
@@ -263,7 +299,8 @@ public class BusquedaActivity extends AppCompatActivity {
         try{
 
             List<String> zonas = new ArrayList<String>();
-            List<String> materias = new ArrayList<String>();
+            List<String> idzonas = new ArrayList<String>();
+            List<String> materiastring = new ArrayList<String>();
 
 
             JSONArray lista = obj.optJSONArray("result");
@@ -279,7 +316,12 @@ public class BusquedaActivity extends AppCompatActivity {
             if(json_data2.length() <= 3){
                 for(int i = 0; i < lista.length(); i++){
                     JSONObject json_data = lista.getJSONObject(i);
+                    Zona myZona = new Zona();
+                    myZona.setNombre(json_data.getString("nombre"));
+                    myZona.set_id(json_data.getString("_id"));
+                    myZonas.add(myZona);
                     zonas.add(json_data.getString("nombre"));
+                    idzonas.add(json_data.getString("_id"));
                 }
                 ArrayAdapter<String> adapterzonas =
                         new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, zonas);
@@ -290,11 +332,17 @@ public class BusquedaActivity extends AppCompatActivity {
             }else{
                 for(int i = 0; i < lista.length(); i++){
                     JSONObject json_data = lista.getJSONObject(i);
-                    materias.add(json_data.getString("nombre"));
+
+                    materia = new Materia(json_data.getString("_id"),
+                            json_data.getString("nombre"),"primaria");
+
+                    materiastring.add(json_data.getString("nombre"));
+                    materias.add(materia);
+
 
                 }
                 ArrayAdapter<String> adaptermaterias =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, materias);
+                        new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, materiastring);
 
                 adaptermaterias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
