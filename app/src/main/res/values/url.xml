@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="getMaterias">http://klassi.herokuapp.com/api/utils/materias</string>
-    <string name="getZonas">http://klassi.herokuapp.com/api/utils/zona</string>
+    <string name="getMaterias">https://klassi-3.herokuapp.com/api/utils/materias</string>
+    <string name="getZonas">https://klassi-3.herokuapp.com/api/utils/zona</string>
     <string name="get"> a</string>
     <string name="getA"> a</string>
+    <string name="postClase">https://klassi-3.herokuapp.com/api/profesores</string>
 
 
 </resources>
