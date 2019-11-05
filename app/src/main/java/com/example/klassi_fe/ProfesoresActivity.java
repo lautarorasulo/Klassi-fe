@@ -21,6 +21,12 @@ public class ProfesoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profesores);
 
+        minteraction = new MenuInteracions();
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
+        setSupportActionBar(toolbar);
+
+
 
     }
 

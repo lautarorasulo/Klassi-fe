@@ -32,9 +32,9 @@ public class LoginActivity extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener(){
             public void onClick( View v){
-               // checkLogin();
-                Intent intent = new Intent(LoginActivity.this, ClasesPendienteDosBotones.class);
-                startActivity(intent);
+                checkLogin();
+                //Intent intent = new Intent(LoginActivity.this, ClasesPendienteDosBotones.class);
+                //startActivity(intent);
             }
         } );
 

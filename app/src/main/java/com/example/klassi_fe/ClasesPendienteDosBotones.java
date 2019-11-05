@@ -38,30 +38,6 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
 
     }
 
-    private void invocarServicio() {
-
-        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(DATA_URL2, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                loading.dismiss();
-                showListView(response);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-
-    }
-
     private void showListView(JSONObject obj){
         try{
 
@@ -95,6 +71,30 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
         }finally {
 
         }
+    }
+
+    private void invocarServicio() {
+
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(DATA_URL2, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                showListView(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
 
