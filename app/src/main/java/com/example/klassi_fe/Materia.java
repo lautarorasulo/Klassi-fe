@@ -7,6 +7,7 @@ public class Materia {
         nombre = this.nombre;
         escolaridad = this.escolaridad;
     }
+    public Materia (){};
 
     public String id;
     public String nombre;

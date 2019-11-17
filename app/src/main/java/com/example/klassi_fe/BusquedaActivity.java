@@ -29,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -36,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -49,6 +51,8 @@ public class BusquedaActivity extends AppCompatActivity {
     Materia materia;
     List<Materia> materias;
     List<Zona> myZonas;
+    List<Profesor> myProfesores;
+
 
 
     Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
@@ -145,10 +149,24 @@ public class BusquedaActivity extends AppCompatActivity {
 
         int pos;
         final String valormateria,valorescolaridad, valorzona, valorhora,valorfecha;
+        String valmat, valmatloop="";
+
+        pos = spinnerescolaridad.getSelectedItemPosition();
+        valorescolaridad = spinnerescolaridad.getItemAtPosition(pos).toString();
+
 
         pos = spinnermateria.getSelectedItemPosition();
-        valormateria = spinnermateria.getItemAtPosition(pos).toString();
+        valmat = spinnermateria.getItemAtPosition(pos).toString();
 
+        for(int j=0; j < materias.size(); j++){
+
+            if(materias.get(j).getNombre().equals(valmat) &&
+                    materias.get(j).getEscolaridad().equals(valorescolaridad)){
+                valmatloop = materias.get(j).getId();
+            }
+        }
+
+        valormateria = valmatloop;
 
         pos = spinnerzona.getSelectedItemPosition();
         valorzona = spinnerzona.getItemAtPosition(pos).toString();
@@ -167,6 +185,15 @@ public class BusquedaActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 loading.dismiss();
                 Log.d("asdasd", "onResponse: "+response);
+
+
+                try {
+                    prepararProfesores(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -174,53 +201,49 @@ public class BusquedaActivity extends AppCompatActivity {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }){protected Map<String, String> getParams() {
-                //buscarIdZona((ArrayList<Zona>) myZonas, valorzona)
-                //buscarId((ArrayList<Materia>) materias, valormateria )
-                Map<String, String> params = new HashMap<>();
-                params.put("idZona", "5daf94c01c041307541d0217");
-                params.put("idMateria", "5daf94c013c04107541d0223");
+        }){
+                protected Map<String, String> getParams() {
+                Map<java.lang.String, java.lang.String> params = new HashMap<>();
+
+                params.put("idZona",buscarIdZona((ArrayList<Zona>) myZonas, valorzona));
+                params.put("idMateria", valormateria);
                 params.put("fecha", valorfecha);
                 params.put("hora", valorhora);
-                Log.d("asdasdasda", "asdasdasdas" + params);
                 return params;
             }
         };
-
-
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
     }
 
-    public String buscarId(ArrayList<Materia> myArray, String materiaSeleccionada ){
-        boolean encontro=true;
-        int i=0;
-        while(i< myArray.size() && encontro){
-            if(myArray.get(i).getNombre().equals(materiaSeleccionada)){
-                return myArray.get(i).getId();
-            }else{
-               i++;
-            }
-            return "NoSeEncontro";
-        }
+    public void prepararProfesores(String respuesta) throws JSONException {
 
-        return null;
+
+        JSONObject jsonObject = new JSONObject(respuesta);
+
+        JSONArray lista = jsonObject.optJSONArray("result");
+
+
+        Log.d("en preparacion", "prepararProfesores: "+lista.getJSONObject(0).getString("nombre"));
+
+
     }
 
-    public String buscarIdZona(ArrayList<Zona> myArray, String materiaSeleccionada ){
+
+    public String buscarIdZona(ArrayList<Zona> myArray, String zonaSeleccionada ){
         boolean encontro=true;
         int i=0;
-        while(i< myArray.size() && encontro){
-            if(myArray.get(i).getNombre().equals(materiaSeleccionada)){
+
+        while(i < myArray.size()){
+
+            if(myArray.get(i).getNombre().equals(zonaSeleccionada)){
                 return myArray.get(i).get_id();
             }else{
                 i++;
             }
-            return "NoSeEncontro";
         }
-
         return null;
     }
 
@@ -236,9 +259,9 @@ public class BusquedaActivity extends AppCompatActivity {
         // el siguiente codigo es Filler y solo ejemplo de como se deberia rellenar el spinner
         // Spinner Drop down elements
         List<String> escolaridad = new ArrayList<String>();
-        escolaridad.add("primaria");
-        escolaridad.add("secundaria");
-        escolaridad.add("terciario");
+        escolaridad.add("Primario");
+        escolaridad.add("Secundario");
+        escolaridad.add("Terciario");
 
         ArrayAdapter<String> adapterescolaridad =
                 new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, escolaridad);
@@ -301,17 +324,14 @@ public class BusquedaActivity extends AppCompatActivity {
             List<String> zonas = new ArrayList<String>();
             List<String> idzonas = new ArrayList<String>();
             List<String> materiastring = new ArrayList<String>();
+            HashSet<String> hashmateria = new HashSet<String>();
+
 
 
             JSONArray lista = obj.optJSONArray("result");
 
-            Log.e("RESPUESTA", "lista" + lista);
-
             JSONObject json_data2 = lista.getJSONObject(0);
             //evaluo si es Zona o Materias
-
-            Log.d("prueba esco", "showListView: "+json_data2.length());
-
 
             if(json_data2.length() <= 3){
                 for(int i = 0; i < lista.length(); i++){
@@ -329,18 +349,28 @@ public class BusquedaActivity extends AppCompatActivity {
                 adapterzonas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 spinnerzona.setAdapter(adapterzonas);
+
             }else{
                 for(int i = 0; i < lista.length(); i++){
                     JSONObject json_data = lista.getJSONObject(i);
 
-                    materia = new Materia(json_data.getString("_id"),
-                            json_data.getString("nombre"),"primaria");
+                    materia = new Materia();
+                    materia.setNombre((json_data.getString("nombre")));
+                    materia.setId(json_data.getString("_id"));
+                    json_data2 = json_data.getJSONObject("escolaridad");
+
+                    materia.setEscolaridad(json_data2.getString("nivel"));
 
                     materiastring.add(json_data.getString("nombre"));
                     materias.add(materia);
 
 
                 }
+
+                hashmateria.addAll(materiastring);
+                materiastring.clear();
+                materiastring.addAll(hashmateria);
+
                 ArrayAdapter<String> adaptermaterias =
                         new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, materiastring);
 
