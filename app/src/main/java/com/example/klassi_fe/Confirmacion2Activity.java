@@ -47,7 +47,7 @@ public class Confirmacion2Activity extends AppCompatActivity {
         hora = findViewById(R.id.pnt_cnf2_hora);
 
 
-        confirmar = (Button) findViewById(R.id.pnt_cnf2_confirmar);
+        confirmar = (Button) findViewById(R.id.perprof_btn_materias);
         cancelar = (Button) findViewById(R.id.pnt_cnf2_cancelar);
 
         perfilprof = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);

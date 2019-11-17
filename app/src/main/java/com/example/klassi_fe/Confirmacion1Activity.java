@@ -43,7 +43,7 @@ public class Confirmacion1Activity extends AppCompatActivity {
         mail = findViewById(R.id.pnt_cnf2_mailal);
         comentarios = findViewById(R.id.pnt_cnf2_lugar);
 
-        confirmar = (Button) findViewById(R.id.pnt_cnf2_confirmar);
+        confirmar = (Button) findViewById(R.id.perprof_btn_materias);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
 

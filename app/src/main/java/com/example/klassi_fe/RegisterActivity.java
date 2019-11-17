@@ -1,8 +1,7 @@
 package com.example.klassi_fe;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
-import java.io.File;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,10 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 checkRegister();
-                //maestroProfesor();
-                // intent = new Intent(RegisterActivity.this , PerfilProfesorActivity.class);
-                // startActivity(intent);
-
             }
         });
     }
@@ -85,10 +89,44 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (readytosend){
             //aca se debe ejecutar el llamado al backend
+            registrarUser();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
             startActivity(intent);
         }
 
+    }
+
+    private void registrarUser(){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+
+        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postrregister), null, new Response.Listener<JSONObject>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.postClase), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loading.dismiss();
+                Log.d("asdasd", "onResponse: "+response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<>();
+            //params.put(Usuario a agregar);
+            //aca ver con Santi como enviar el nuevo usuario
+
+            Log.d("AgregandoMateria", "AgregarMateria" + params);
+            return params;
+        }
+        };
+
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
 

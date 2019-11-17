@@ -1,6 +1,7 @@
 package com.example.klassi_fe;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,27 +16,55 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PerfilProfesorActivity extends AppCompatActivity {
 
-    TextView nombre,mail,comentarios;
+    TextView nombre, mail, comentarios;
 
     Toolbar toolbar;
 
-    Button setimage, setHorarios;
+    Button setimage, setHorarios, verMaterias;
 
     ImageView perfil;
 
     MenuInteracions minteraction;
+
+    Materia materia;
+
+    List<Materia> materias;
+
+    Spinner spinnerMateria;
+
+    AlertDialog.Builder builder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +77,9 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         mail = findViewById(R.id.pnt_cnf2_mailal);
         setHorarios = findViewById(R.id.perprof_btn_horario);
 
+        builder = new AlertDialog.Builder(PerfilProfesorActivity.this);
+
+
         setimage = (Button) findViewById(R.id.perprof_btn_setimagen2);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
@@ -57,7 +89,6 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         CargoPerfil();
-
 
         setimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +103,17 @@ public class PerfilProfesorActivity extends AppCompatActivity {
                 setearHorarios();
             }
         });
+        verMaterias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verMaterias();
+            }
+        });
     }
 
     private void CrearImagen() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,0);
+        startActivityForResult(intent, 0);
     }
 
     private void CargoPerfil() {
@@ -95,18 +132,17 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         File file;
         file = getFilesDir();
 
-        String imagepath = getFilesDir() + "/imagen"+123+".jpg";
+        String imagepath = file + "/imagen" + 123 + ".jpg";
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
+        Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath, options);
 
-        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
+        Log.d("imagen path de BusquedaActivity", "cargoperfil: " + imagepath);
 
-        if(imagenperfil != null ){
+        if (imagenperfil != null) {
             perfil.setImageBitmap(imagenperfil);
         }
-
 
 
     }
@@ -128,16 +164,16 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         // salva la imagen que el usuario acaba de sacar.
         File file;
         file = getFilesDir();
-        File savefile = new File(file, "imagen"+123+".jpg");
-        if(savefile.exists()){
+        File savefile = new File(file, "imagen" + 123 + ".jpg");
+        if (savefile.exists()) {
             savefile.delete();
         }
-        try{
+        try {
             FileOutputStream out = new FileOutputStream(savefile);
-            imagenasalvar.compress(Bitmap.CompressFormat.JPEG,90,out);
+            imagenasalvar.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.close();
-            Log.d("Image de save", "SaveImage: Grabo la imagen???"+savefile.toString());
-        }catch (Exception e){
+            Log.d("Image de save", "SaveImage: Grabo la imagen???" + savefile.toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -147,24 +183,24 @@ public class PerfilProfesorActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu1,menu);
+        inflater.inflate(R.menu.menu1, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_User:
-                minteraction.irPerfi(this.getLocalClassName(),this);
+                minteraction.irPerfi(this.getLocalClassName(), this);
                 break;
             case R.id.menu_notifications:
 
                 break;
             case R.id.menu_share:
-                minteraction.hacerShare("Shareado desde perfil profesor",this);
+                minteraction.hacerShare("Shareado desde perfil profesor", this);
                 break;
             case R.id.menu_aboutUs:
-                minteraction.mostrarAboutUs("",this);
+                minteraction.mostrarAboutUs("", this);
                 break;
         }
 
@@ -172,81 +208,118 @@ public class PerfilProfesorActivity extends AppCompatActivity {
     }
 
 
-    public void setearHorarios(){
+    public void setearHorarios() {
 
-            // Construyo un AlertDialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(PerfilProfesorActivity.this);
+        // Construyo un AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(PerfilProfesorActivity.this);
 
-            // String array de HorariosActivity
-            String[] horarios = new String[]{
-                    "13:00",
-                    "14:00",
-                    "15:00",
-                    "16:00",
-                    "17:00"
-            };
+        // String array de HorariosActivity
+        String[] horarios = new String[]{
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00"
+        };
 
-            // Boolean array para guardar estado de HorariosActivity seleccionados
-            final boolean[] checkedHorarios = new boolean[]{
-                    false, // 1
-                    true, // 2
-                    false, // 3
-                    true, // 4
-                    false //5
+        // Boolean array para guardar estado de HorariosActivity seleccionados
+        final boolean[] checkedHorarios = new boolean[]{
+                false, // 1
+                true, // 2
+                false, // 3
+                true, // 4
+                false //5
 
-            };
+        };
 
-            // Trae lista de HorariosActivity
-            final List<String> horariosList = Arrays.asList(horarios);
-            //Array para enviar al negocio a guardar HorariosActivity
-            final List<String> horariosSelected = Arrays.asList(horarios);
+        // Trae lista de HorariosActivity
+        final List<String> horariosList = Arrays.asList(horarios);
+        //Array para enviar al negocio a guardar HorariosActivity
+        final List<String> horariosSelected = Arrays.asList(horarios);
 
 
-            builder.setMultiChoiceItems(horarios, checkedHorarios, new DialogInterface.OnMultiChoiceClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        builder.setMultiChoiceItems(horarios, checkedHorarios, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-                    // Update de los estados de cada horario
-                    checkedHorarios[which] = isChecked;
+                // Update de los estados de cada horario
+                checkedHorarios[which] = isChecked;
 
-                    // Get the current focused item
-                    String currentItem = horariosList.get(which);
+                // Get the current focused item
+                String currentItem = horariosList.get(which);
 
-                    // Notify the current action
-                    Toast.makeText(getApplicationContext(),
-                            currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
-                }
-            });
+                // Notify the current action
+                Toast.makeText(getApplicationContext(),
+                        currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            // Setear si es cancelable o no
-            builder.setCancelable(true);
+        // Setear si es cancelable o no
+        builder.setCancelable(true);
 
-            // Titulo del dialog
-            builder.setTitle("Setear HorariosActivity");
 
-            // Boton guardar
-            builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    for (int i = 0; i<checkedHorarios.length; i++){
-                        boolean checked = checkedHorarios[i];
-                        if (checked) {
-                            horariosSelected.add(horariosList.get(i));
-                        }
+
+        // Titulo del dialog
+        builder.setTitle("Setear HorariosActivity");
+
+        // Boton guardar
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < checkedHorarios.length; i++) {
+                    boolean checked = checkedHorarios[i];
+                    if (checked) {
+                        horariosSelected.add(horariosList.get(i));
+                        agregarHorarios();
                     }
                 }
-            });
+            }
+        });
 
-            // Boton cancelar
-            builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do something when click the neutral button
-                }
-            });
+        // Boton cancelar
+        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click the neutral button
+            }
+        });
 
-            AlertDialog dialog = builder.create();
-            // Display the alert dialog on interface
-            dialog.show();
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+    }
+
+    public void verMaterias(){
+        Intent intent = new Intent(PerfilProfesorActivity.this, materiasActivity.class);
+        startActivity(intent);
+    }
+
+    public void agregarHorarios(){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+
+        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postClase), null, new Response.Listener<JSONObject>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.postClase), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loading.dismiss();
+                Log.d("asdasd", "onResponse: "+response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<>();
+            params.put("aca va el array de horarios seteados", "");
+            Log.d("SeteandoHorarios", "SeteandoHorarios" + params);
+            return params;
+        }
+        };
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }

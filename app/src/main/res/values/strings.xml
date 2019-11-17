@@ -35,8 +35,6 @@
     <string name="str_p_cnf2btn">Cancelar</string>
 
 
-
-
     //String de Login
     <string name="log_welcome">Bienvenido</string>
     <string name="log_user">Usuario</string>
@@ -65,11 +63,10 @@
     //String de Profesores
     <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>
 
+    //String de boton
+    <string name="Agregar">Agregar</string>
 
     //String de Clases
-
-
-
 
 
 </resources>
