@@ -7,46 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/reg_pass_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/str_pwd"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/reg_mail_txt"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/reg_mail_txt"
-        app:layout_constraintTop_toBottomOf="@+id/reg_mail_txt" />
-
-    <Button
-        android:id="@+id/reg_reg_btn"
-        android:layout_width="127dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/str_btnreg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-        app:layout_constraintStart_toStartOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+    <ImageView
+        android:id="@+id/reg_logo_img"
+        android:layout_width="381dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/appname" />
 
     <EditText
         android:id="@+id/reg_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginTop="16dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/str_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_logo_img" />
+
+    <EditText
+        android:id="@+id/reg_pass_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/str_pwd"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_mail_txt"
+        android:importantForAutofill="no" />
 
     <!-- este modulo no utiliza la Barra superior
     <include
@@ -54,35 +52,13 @@
         layout="@layout/toolbar"/>
     -->
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="202dp" />
-
-    <ImageView
-        android:id="@+id/reg_logo_img"
-        android:layout_width="381dp"
-        android:layout_height="145dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/reg_name_txt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.282"
-        app:srcCompat="@drawable/logo" />
-
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="103dp"
         android:layout_height="57dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/reg_pass_txt"
-        app:layout_constraintStart_toStartOf="@+id/reg_pass_txt"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_pass_txt">
 
         <RadioButton
@@ -90,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/str_btnprof" />
 
         <RadioButton
@@ -97,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/str_btnal" />
     </RadioGroup>
 
@@ -104,13 +82,25 @@
         android:id="@+id/reg_mail_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/str_email"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/reg_name_txt"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/reg_name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/reg_name_txt" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_name_txt"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/reg_reg_btn"
+        android:layout_width="127dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/buttons_shape"
+        android:text="@string/str_btnreg"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

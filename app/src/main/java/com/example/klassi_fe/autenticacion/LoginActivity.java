@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.autenticacion;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.klassi_fe.HomeActivity;
+import com.example.klassi_fe.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,36 +28,27 @@ public class LoginActivity extends AppCompatActivity {
         pass = (TextView) findViewById(R.id.reg_mail_txt);
 
         login = (Button) findViewById(R.id.reg_reg_btn);
-        register = (Button) findViewById(R.id.log_register_but);
-        register2 = (Button) findViewById(R.id.log_register2_but3);
+        register = (Button) findViewById(R.id.log_register2_but3);
 
+        goLogin();
+        goRegister();
+    }
 
-        login.setOnClickListener(new View.OnClickListener(){
-            public void onClick( View v){
-                checkLogin();
-                //Intent intent = new Intent(LoginActivity.this, ClasesPendienteDosBotones.class);
-                //startActivity(intent);
-            }
-        } );
-
-        register.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //hay que agregar el intent al register
-                //Intent intent = new Intent(LoginActivity.this, RegisterActivity.class)
-            }
-        }));
-
-        register2.setOnClickListener((new View.OnClickListener(){
+    private void goRegister(){
+        register.setOnClickListener((new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         }));
+    }
 
-
-
+    private void goLogin(){
+        login.setOnClickListener(new View.OnClickListener(){
+            public void onClick( View v){
+                checkLogin();
+            }});
     }
 
     private void checkLogin() {

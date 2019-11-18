@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.klassi_fe.objetos.MenuInteracions;
+
 public class ClasesActivity extends AppCompatActivity {
 
     MenuInteracions minteraction;

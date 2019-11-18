@@ -1,7 +1,5 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.alumno;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,20 +16,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.objetos.MenuInteracions;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.List;
 
-public class PerfilProfesorActivity extends AppCompatActivity {
+public class PerfilAlumno extends AppCompatActivity {
 
-    TextView nombre,mail,comentarios;
+    TextView nombre,edad,zona,ultimas_materias,quieroaprender,buscoprofe;
 
     Toolbar toolbar;
 
-    Button setimage, setHorarios;
+    Button setimage;
 
     ImageView perfil;
 
@@ -43,12 +41,15 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil_alumno);
 
         minteraction = new MenuInteracions();
-        comentarios = findViewById(R.id.pnt_cnf2_lugar);
-        nombre = findViewById(R.id.pnt_cnf2_nomal);
-        mail = findViewById(R.id.pnt_cnf2_mailal);
-        setHorarios = findViewById(R.id.perprof_btn_horario);
 
-        setimage = (Button) findViewById(R.id.perprof_btn_setimagen2);
+        nombre = findViewById(R.id.pnt_cnf2_nomal);
+        edad = findViewById(R.id.perprof_txt_apellido);
+        zona= findViewById(R.id.pnt_cnf2_mailal);
+        ultimas_materias = findViewById(R.id.pnt_cnf2_lugar);
+        quieroaprender= findViewById(R.id.perprof_txt_setearHorario);
+        buscoprofe = findViewById(R.id.perfal_txt_buscoprofe);
+
+        setimage = (Button) findViewById(R.id.perprof_btn_horario);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
 
@@ -65,13 +66,6 @@ public class PerfilProfesorActivity extends AppCompatActivity {
                 CrearImagen();
             }
         });
-
-        setHorarios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setearHorarios();
-            }
-        });
     }
 
     private void CrearImagen() {
@@ -86,10 +80,11 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
 
 
-        nombre.setText("Juan Roman Riquelme");
-        mail.setText("jromanriquelme@gmail.com");
-        comentarios.setText("Profesor puntual muy aplicado");
-
+        nombre.setText("Nombre: "+ "juan perez");
+        edad.setText("Edad: "+ "10");
+        zona.setText("zona: "+"caballito");
+        quieroaprender.setText("Materias: " + "lengua, matematicas, etc");
+        buscoprofe.setText("Busco profesor:" + "que enseñe de manera lenta y efectiva");
 
         //busco Imagen en File system
         File file;
@@ -161,7 +156,7 @@ public class PerfilProfesorActivity extends AppCompatActivity {
 
                 break;
             case R.id.menu_share:
-                minteraction.hacerShare("Shareado desde perfil profesor",this);
+                minteraction.hacerShare("Shareado desde perfil alumnno",this);
                 break;
             case R.id.menu_aboutUs:
                 minteraction.mostrarAboutUs("",this);
@@ -169,84 +164,5 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void setearHorarios(){
-
-            // Construyo un AlertDialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(PerfilProfesorActivity.this);
-
-            // String array de HorariosActivity
-            String[] horarios = new String[]{
-                    "13:00",
-                    "14:00",
-                    "15:00",
-                    "16:00",
-                    "17:00"
-            };
-
-            // Boolean array para guardar estado de HorariosActivity seleccionados
-            final boolean[] checkedHorarios = new boolean[]{
-                    false, // 1
-                    true, // 2
-                    false, // 3
-                    true, // 4
-                    false //5
-
-            };
-
-            // Trae lista de HorariosActivity
-            final List<String> horariosList = Arrays.asList(horarios);
-            //Array para enviar al negocio a guardar HorariosActivity
-            final List<String> horariosSelected = Arrays.asList(horarios);
-
-
-            builder.setMultiChoiceItems(horarios, checkedHorarios, new DialogInterface.OnMultiChoiceClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                    // Update de los estados de cada horario
-                    checkedHorarios[which] = isChecked;
-
-                    // Get the current focused item
-                    String currentItem = horariosList.get(which);
-
-                    // Notify the current action
-                    Toast.makeText(getApplicationContext(),
-                            currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            // Setear si es cancelable o no
-            builder.setCancelable(true);
-
-            // Titulo del dialog
-            builder.setTitle("Setear HorariosActivity");
-
-            // Boton guardar
-            builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    for (int i = 0; i<checkedHorarios.length; i++){
-                        boolean checked = checkedHorarios[i];
-                        if (checked) {
-                            horariosSelected.add(horariosList.get(i));
-                        }
-                    }
-                }
-            });
-
-            // Boton cancelar
-            builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do something when click the neutral button
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            // Display the alert dialog on interface
-            dialog.show();
     }
 }

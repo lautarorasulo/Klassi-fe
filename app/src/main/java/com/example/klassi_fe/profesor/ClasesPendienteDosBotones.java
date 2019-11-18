@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.profesor;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.adapters.AdapterClasesPendientes;
+import com.example.klassi_fe.objetos.ObjetoClase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +25,7 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
 
     private String DATA_URL2;
     private ListView listView;
+    private String id;
 
 
 
@@ -30,7 +34,9 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clases_pendiente_dos_botones);
 
-        DATA_URL2 = "http://PONER URL VALIDA ACA:3001/api/clases/5daf94c01c041307541d0232";
+        id = "";
+
+        DATA_URL2 = getString(R.string.clases_a_notificar) + id;
         listView = (ListView) findViewById(R.id.lista_pendientes_dos_botones);
 
         invocarServicio();
@@ -51,7 +57,6 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
             for(int i = 0; i < lista.length(); i++){
                 JSONObject json_data = lista.getJSONObject(i);
                 ObjetoClase myClase = new ObjetoClase();
-               // myClase.set_id(json_data.getString("_id"));
                 myClase.setAlumno("Alumno: "+json_data.getString("alumno"));
                 myClase.setHorario("Horario: "+json_data.getString("fecha") +" - "+(json_data.getString("hora")));
                 myClase.setMateria("Materia: "+json_data.getString("materia"));

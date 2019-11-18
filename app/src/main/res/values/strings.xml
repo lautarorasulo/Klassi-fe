@@ -24,6 +24,8 @@
     <string name="btn_horario">Horarios</string>
     <string name="btn_materia">Materias</string>
     <string name="btn_confirmar">Confirmar</string>
+    <string name="btn_cancelar">Cancelar</string>
+
 
     //Pantalla confirmación 1
     <string name="str_p_cnf1_nombre">Nombre</string>
@@ -61,6 +63,13 @@
     //String de Busqueda
     <string name="busqueda_welcome">Selecciona las opciones para iniciar tu busqueda de profesores</string>
     <string name="busqueda_button">Busqueda</string>
+    <string name="seleccion_profesor_btn">Ver</string>
+    <string name="seleccion_profesor_nombre">Nombre</string>
+    <string name="lista_seleccion_profesor_btn">Atras</string>
+
+
+
+
 
     //String de Profesores
     <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>

@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.clase;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,35 +14,38 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.objetos.MenuInteracions;
+import com.example.klassi_fe.objetos.Profesor;
+
 import java.io.File;
 
 public class Confirmacion1Activity extends AppCompatActivity {
 
-    TextView nombre,mail,comentarios;
-
-    Toolbar toolbar;
-
-    Intent intent;
-
-    Button confirmar;
-
-    ImageView perfil;
-
-    MenuInteracions minteraction;
+    private TextView nombre,mail,comentarios,apellido;
+    private Toolbar toolbar;
+    private Button confirmar;
+    private ImageView perfil;
+    private MenuInteracions minteraction;
+    private Profesor myProfesor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmacion1);
 
+        myProfesor = new Profesor();
+        Bundle bundle = getIntent().getExtras();
+        myProfesor = bundle.getParcelable("profesor");
+
         minteraction = new MenuInteracions();
 
-        nombre = findViewById(R.id.pnt_cnf2_nomal);
+        nombre = (TextView) findViewById(R.id.pnt_cnf2_nomal);
+        apellido = (TextView) findViewById(R.id.pnt_cnf2_apellido);
+        mail = (TextView) findViewById(R.id.pnt_cnf2_mailal);
+        comentarios = (TextView) findViewById(R.id.pnt_cnf2_desc);
 
-        mail = findViewById(R.id.pnt_cnf2_mailal);
-        comentarios = findViewById(R.id.pnt_cnf2_lugar);
-
-        confirmar = (Button) findViewById(R.id.pnt_cnf2_confirmar);
+        confirmar = (Button) findViewById(R.id.pnt_cnf_confirmar);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
 
@@ -52,14 +54,7 @@ public class Confirmacion1Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         CargoPerfil();
-
-
-        confirmar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Confirmar();
-            }
-        });
+        Confirmar();
     }
 
 
@@ -70,33 +65,37 @@ public class Confirmacion1Activity extends AppCompatActivity {
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
 
 
-        nombre.setText("Nombre: "+ "juan perez");
-        mail.setText("Mail: " + "asd@asd.com");
+        nombre.setText("Nombre: "+ myProfesor.getNombre());
+        apellido.setText("Apellido: "+ myProfesor.getApellido());
+        mail.setText("Mail: " + myProfesor.getMail());
+        comentarios.setText(myProfesor.getDescripcion());
 
 
         //busco Imagen en File system
         File file;
         file = getFilesDir();
 
-        String imagepath = getFilesDir() + "/imagen"+123+".jpg";
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
+        //String imagepath = getFilesDir() + "/imagen"+123+".jpg";
+        //Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        if(imagenperfil != null ){
-            perfil.setImageBitmap(imagenperfil);
-        }
-
-
+        //Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
+        //if(imagenperfil != null ){
+        //    perfil.setImageBitmap(imagenperfil);
+        //}
 
     }
 
-    public void Confirmar(){
-        intent = new Intent(Confirmacion1Activity.this , Confirmacion2Activity.class);
-        startActivity(intent);
+    private void Confirmar(){
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Confirmacion1Activity.this, ConfirmarClaseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

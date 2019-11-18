@@ -95,7 +95,8 @@
                 android:layout_marginBottom="2dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:text="OK"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/buttons_shape"
+                android:textColor="@android:color/background_light"/>
 
             <Button
                 android:id="@+id/clases_prf_btn_rechazar"
@@ -109,7 +110,8 @@
                 android:layout_marginBottom="2dp"
                 android:backgroundTint="@color/colorAccent"
                 android:text="NOT OK"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/buttons_shape"
+                android:textColor="@android:color/background_light"/>
         </LinearLayout>
 
     </LinearLayout>

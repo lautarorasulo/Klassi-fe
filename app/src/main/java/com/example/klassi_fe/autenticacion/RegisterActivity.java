@@ -1,25 +1,22 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.autenticacion;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
-import java.io.File;
+import com.example.klassi_fe.HomeActivity;
+import com.example.klassi_fe.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
 
     EditText txt_name,txt_email, txt_pwd;
     Button btn_reg;
-    Intent intent;
     RadioButton rb1, rb2;
     ImageView logo;
     String tipoUsuario;
@@ -51,9 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
     public void maestroProfesor(){

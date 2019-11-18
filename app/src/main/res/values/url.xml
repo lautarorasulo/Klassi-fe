@@ -5,6 +5,8 @@
     <string name="get"> a</string>
     <string name="getA"> a</string>
     <string name="postClase">https://klassi-3.herokuapp.com/api/profesores</string>
+    <string name="clases_a_notificar">https://klassi-3.herokuapp.com/api/clases/</string>
+
 
 
 </resources>
