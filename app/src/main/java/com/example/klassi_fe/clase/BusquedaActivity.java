@@ -55,10 +55,7 @@ public class BusquedaActivity extends AppCompatActivity {
     Materia materia;
     List<Materia> materias;
     List<Zona> myZonas;
-    //List<Profesor> myProfesores;
     ArrayList<Profesor> mysProfesores;
-
-
 
     Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
     Button busqueda;
@@ -184,12 +181,10 @@ public class BusquedaActivity extends AppCompatActivity {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
-        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postClase), null, new Response.Listener<JSONObject>() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.postClase), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
-                Log.d("asdasd", "onResponse: "+response);
                 try {
                     prepararProfesores(response);
                 } catch (JSONException e) {
