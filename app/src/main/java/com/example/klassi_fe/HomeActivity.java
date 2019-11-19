@@ -13,6 +13,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.klassi_fe.clase.BusquedaActivity;
+import com.example.klassi_fe.objetos.MenuInteracions;
+
 public class HomeActivity extends AppCompatActivity {
 
     MenuInteracions minteraction;

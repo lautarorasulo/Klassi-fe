@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.profesor;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -16,10 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,19 +25,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.materiasActivity;
+import com.example.klassi_fe.objetos.MenuInteracions;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,24 +40,15 @@ import java.util.Map;
 
 public class PerfilProfesorActivity extends AppCompatActivity {
 
-    TextView nombre, mail, comentarios;
+    TextView nombre,mail,comentarios;
 
     Toolbar toolbar;
 
-    Button setimage, setHorarios, verMaterias;
+    Button setimage, setHorarios;
 
     ImageView perfil;
 
     MenuInteracions minteraction;
-
-    Materia materia;
-
-    List<Materia> materias;
-
-    Spinner spinnerMateria;
-
-    AlertDialog.Builder builder;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +61,6 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         mail = findViewById(R.id.pnt_cnf2_mailal);
         setHorarios = findViewById(R.id.perprof_btn_horario);
 
-        builder = new AlertDialog.Builder(PerfilProfesorActivity.this);
-
-
         setimage = (Button) findViewById(R.id.perprof_btn_setimagen2);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
@@ -89,6 +70,7 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         CargoPerfil();
+
 
         setimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,17 +85,11 @@ public class PerfilProfesorActivity extends AppCompatActivity {
                 setearHorarios();
             }
         });
-        verMaterias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verMaterias();
-            }
-        });
     }
 
     private void CrearImagen() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent,0);
     }
 
     private void CargoPerfil() {
@@ -132,17 +108,18 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         File file;
         file = getFilesDir();
 
-        String imagepath = file + "/imagen" + 123 + ".jpg";
+        String imagepath = getFilesDir() + "/imagen"+123+".jpg";
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath, options);
+        Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        Log.d("imagen path de BusquedaActivity", "cargoperfil: " + imagepath);
+        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
 
-        if (imagenperfil != null) {
+        if(imagenperfil != null ){
             perfil.setImageBitmap(imagenperfil);
         }
+
 
 
     }
@@ -313,7 +290,7 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         }){protected Map<String, String> getParams() {
             Map<String, String> params = new HashMap<>();
             params.put("aca va el array de horarios seteados", "");
-            Log.d("SeteandoHorarios", "SeteandoHorarios" + params);
+            Log.d("SeteandoHorarios", "SeteandoHorarios " + params);
             return params;
         }
         };

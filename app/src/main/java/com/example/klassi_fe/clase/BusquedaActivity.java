@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.clase;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +26,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.objetos.Materia;
+import com.example.klassi_fe.objetos.MenuInteracions;
+import com.example.klassi_fe.objetos.ObjetoClase;
+import com.example.klassi_fe.objetos.Profesor;
+import com.example.klassi_fe.objetos.Zona;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,14 +55,12 @@ public class BusquedaActivity extends AppCompatActivity {
     Materia materia;
     List<Materia> materias;
     List<Zona> myZonas;
-    List<Profesor> myProfesores;
-
-
+    ArrayList<Profesor> mysProfesores;
 
     Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
-    Button busqueda, datepicker;
+    Button busqueda;
 
-    TextView prueba;
+    TextView prueba, datepicker;
 
     private int mYear;
     private int mMonth;
@@ -80,7 +82,7 @@ public class BusquedaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         busqueda = (Button) findViewById(R.id.busq_btn_search);
-        datepicker = (Button) findViewById(R.id.busq_btn_datepicker);
+        datepicker = (TextView) findViewById(R.id.busq_btn_datepicker);
 
         spinnermateria = (Spinner) findViewById(R.id.busq_spinner_materia);
         spinnerescolaridad = (Spinner) findViewById(R.id.busq_spinner_escolaridad);
@@ -122,7 +124,7 @@ public class BusquedaActivity extends AppCompatActivity {
         mMonth = mcurrentDate.get(Calendar.MONTH);
         mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog mDatePicker = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                 Calendar myCalendar = Calendar.getInstance();
                 myCalendar.set(Calendar.YEAR, selectedyear);
@@ -179,21 +181,15 @@ public class BusquedaActivity extends AppCompatActivity {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
-        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postClase), null, new Response.Listener<JSONObject>() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.postClase), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
-                Log.d("asdasd", "onResponse: "+response);
-
-
                 try {
                     prepararProfesores(response);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -220,15 +216,36 @@ public class BusquedaActivity extends AppCompatActivity {
 
     public void prepararProfesores(String respuesta) throws JSONException {
 
+        mysProfesores = new ArrayList<Profesor>();
 
         JSONObject jsonObject = new JSONObject(respuesta);
 
         JSONArray lista = jsonObject.optJSONArray("result");
 
+        for(int i = 0; i < lista.length(); i++){
+            Profesor myProfesor = new Profesor();
+            JSONObject json_data = lista.getJSONObject(i);
+            myProfesor.setNombre(json_data.getString("nombre"));
+            myProfesor.setApellido(json_data.getString("apellido"));
+            myProfesor.setMail(json_data.getString("email"));
+            myProfesor.setDescripcion(json_data.getString("descripcion"));
+            myProfesor.setPremium(json_data.getBoolean("premiun"));
 
-        Log.d("en preparacion", "prepararProfesores: "+lista.getJSONObject(0).getString("nombre"));
+            mysProfesores.add(myProfesor);
+        }
 
 
+        cambiarActivity();
+
+
+    }
+
+    private void cambiarActivity(){
+        Intent intent = new Intent(BusquedaActivity.this, ProfesoresActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("ListaProfesores", mysProfesores);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

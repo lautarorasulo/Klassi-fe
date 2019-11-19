@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.klassi_fe.R;
+import com.example.klassi_fe.objetos.ObjetoClase;
 
 import java.util.ArrayList;
 

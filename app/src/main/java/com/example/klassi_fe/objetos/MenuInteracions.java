@@ -1,9 +1,11 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.objetos;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.EditText;
+
+import com.example.klassi_fe.alumno.PerfilAlumno;
 
 public class MenuInteracions {
 
@@ -13,7 +15,7 @@ public class MenuInteracions {
 
 
         if(!s.equals("PerfilAlumno")){
-            Intent intent = new Intent(c,PerfilAlumno.class);
+            Intent intent = new Intent(c, PerfilAlumno.class);
             c.startActivity(intent);
         }
     }

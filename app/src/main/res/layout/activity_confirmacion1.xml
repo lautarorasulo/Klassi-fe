@@ -5,67 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerfilAlumno"
+    tools:context=".alumno.PerfilAlumno"
     android:theme="@style/fontStyleAB">
 
-
-    <Button
-        android:id="@+id/perprof_btn_materias"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="172dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="44dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/btn_confirmar"
-        android:textAlignment="center"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_lugar"
-        app:layout_constraintStart_toStartOf="@+id/pnt_cnf2_lugar"
-        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_lugar" />
-
-    <ImageView
-        android:id="@+id/pnt_cnf2_imgprof"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maintoolbar"
-        tools:srcCompat="@tools:sample/avatars[1]" />
-
-    <TextView
-        android:id="@+id/pnt_cnf2_nomal"
-        android:layout_width="148dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/gen_spaces"
-        app:layout_constraintEnd_toStartOf="@+id/pnt_cnf2_imgprof"
-        app:layout_constraintHorizontal_bias="0.366"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maintoolbar" />
-
-    <TextView
-        android:id="@+id/pnt_cnf2_mailal"
-        android:layout_width="149dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/gen_spaces"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintStart_toStartOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintVertical_bias="0.208" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="322dp" />
 
     <include
         android:id="@+id/maintoolbar"
@@ -74,15 +16,77 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/pnt_cnf2_imgprof"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar"
+        tools:srcCompat="@tools:sample/avatars[1]" />
+
     <TextView
-        android:id="@+id/pnt_cnf2_lugar"
+        android:id="@+id/pnt_cnf2_nomal"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_apellido"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_mailal"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_apellido" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="322dp" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_desc"
         android:layout_width="304dp"
         android:layout_height="71dp"
-        android:layout_marginBottom="292dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/gen_spaces"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_confirmar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/pnt_cnf_confirmar"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="172dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/buttons_shape"
+        android:text="@string/btn_confirmar"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 

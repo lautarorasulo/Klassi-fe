@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.objetos;
 
 public class ObjetoClase {
     public String _id;

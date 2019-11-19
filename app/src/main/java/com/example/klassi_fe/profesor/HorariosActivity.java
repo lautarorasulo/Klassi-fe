@@ -1,4 +1,4 @@
-package com.example.klassi_fe;
+package com.example.klassi_fe.profesor;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.klassi_fe.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
