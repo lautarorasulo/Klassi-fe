@@ -89,11 +89,21 @@ public class RegisterActivity extends AppCompatActivity {
             txt_pwd.setError(getString(R.string.str_error));
             readytosend = false;
         }
-
+        if(txt_name.getText().toString().isEmpty()){
+            txt_name.setError(getString(R.string.str_error));
+            readytosend = false;
+        }
+        if(rb1.isChecked() || rb2.isChecked()) {
+            if (rb1.isChecked()) {
+                tipoUsuario = "Alumno";
+            } else if (rb2.isChecked()) {
+                tipoUsuario = "Profesor";
+            }
+        }
         if (readytosend){
             //aca se debe ejecutar el llamado al backend
             registrarUser();
-            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
@@ -128,13 +138,9 @@ public class RegisterActivity extends AppCompatActivity {
             return params;
         }
         };
-
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 }
 
 
-//CREAR METODO POST

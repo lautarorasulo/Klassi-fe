@@ -2,7 +2,7 @@ package com.example.klassi_fe.objetos;
 
 public class Materia {
 
-    Materia(String id, String nombre, String escolaridad){
+    public Materia(String id, String nombre, String escolaridad){
         id = this.id;
         nombre = this.nombre;
         escolaridad = this.escolaridad;

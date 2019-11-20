@@ -83,11 +83,11 @@ public class LoginActivity extends AppCompatActivity {
         if (readytosend){
             //aca se debe ejecutar el llamado al backend
             /////////////////////
-               /* final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...",
+                final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...",
                         "Actualizando datos...", false, false);
 
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.100.116:3001/api/login", new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.login), new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 loading.dismiss();
@@ -130,10 +130,10 @@ public class LoginActivity extends AppCompatActivity {
                 };
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
-                requestQueue.add(stringRequest);*/
+                requestQueue.add(stringRequest);
             //////////////////////
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            //startActivity(intent);
         }
 
     }
