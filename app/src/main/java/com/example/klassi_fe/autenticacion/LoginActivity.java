@@ -20,6 +20,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private static final String KEY_NAME = "key_userID";
+    private static final String KEY_NAME_ROL = "key_userROL";
+    private static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
+
     private TextView user,pass;
     private Button login, register, register2;
 
@@ -93,12 +99,14 @@ public class LoginActivity extends AppCompatActivity {
                                 loading.dismiss();
                                 Log.d("RESPUESTA LOGIN: ", ""+response);
 
-                                //SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
-                                //SharedPreferences.Editor editor = sp.edit();
+                                SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                String[] userID = response.split("\"");
 
-                                //String[] userID = response.split("\"");
-                                //editor.putString(KEY_NAME, userID[3]);
-                                //editor.apply();
+                                editor.putString(KEY_NAME, userID[5]);
+                                editor.putString(KEY_NAME_ROL, userID[9]);
+                                editor.putString(KEY_NAME_NOTIFICACION, userID[12]);
+                                editor.apply();
 
                                 Intent intent = new Intent(LoginActivity.this ,HomeActivity.class);
                                 startActivity(intent);

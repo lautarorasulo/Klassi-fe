@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
@@ -25,11 +26,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.materiasActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +45,15 @@ import java.util.Map;
 
 public class PerfilProfesorActivity extends AppCompatActivity {
 
+
+    static final String SHARED_PREF_NAME = "userID";
+
+    static final String KEY_NAME = "key_userID";
+    private static final String KEY_NAME_ROL = "key_userROL";
+    private static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
+
+    private String userId, userRol, userNotificacion;
+
     TextView nombre,mail,comentarios;
 
     Toolbar toolbar;
@@ -48,6 +62,11 @@ public class PerfilProfesorActivity extends AppCompatActivity {
 
     ImageView perfil;
 
+    private String algo;
+
+    String dataurlProf;
+
+
     MenuInteracions minteraction;
 
     @Override
@@ -55,6 +74,7 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_alumno);
 
+        algo = "132";
         minteraction = new MenuInteracions();
         comentarios = findViewById(R.id.pnt_cnf2_lugar);
         nombre = findViewById(R.id.pnt_cnf2_nomal);
@@ -69,15 +89,22 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        userId = sp.getString(KEY_NAME,null);
+        userRol = sp.getString(KEY_NAME_ROL, null);
+        userNotificacion = sp.getString(KEY_NAME_NOTIFICACION, null);
+
+        dataurlProf =  "https://klassi-3.herokuapp.com/api/profesores/" + userId;
         CargoPerfil();
 
 
-        setimage.setOnClickListener(new View.OnClickListener() {
+       /* setimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CrearImagen();
             }
-        });
+        });*/
 
         setHorarios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +125,28 @@ public class PerfilProfesorActivity extends AppCompatActivity {
         //Tambien voy a buscar si esta la imagen del usuario grabada en el dispositivo. en caso
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
 
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(dataurlProf, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                try {
+                    mapearDatos(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        nombre.setText("Juan Roman Riquelme");
-        mail.setText("jromanriquelme@gmail.com");
-        comentarios.setText("Profesor puntual muy aplicado");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
 
         //busco Imagen en File system
         File file;
@@ -120,8 +164,15 @@ public class PerfilProfesorActivity extends AppCompatActivity {
             perfil.setImageBitmap(imagenperfil);
         }
 
+    }
 
+    public void mapearDatos(JSONObject profe) throws JSONException {
+        Log.d("ASLJDLSKA", "profe " + profe);
+        Log.d("NOMBRE", "profe " + profe.optJSONObject("result").getString("nombre"));
 
+        nombre.setText(profe.optJSONObject("result").getString("nombre"));
+        mail.setText(profe.optJSONObject("result").getString("email"));
+        comentarios.setText(profe.optJSONObject("result").getString("descripcion"));
     }
 
 
@@ -168,7 +219,7 @@ public class PerfilProfesorActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_User:
-                minteraction.irPerfi(this.getLocalClassName(), this);
+                minteraction.irPerfi(this.getLocalClassName(), this, algo);
                 break;
             case R.id.menu_notifications:
 

@@ -59,12 +59,14 @@
 
         <Button
             android:id="@+id/lista_profesores_btn_atras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="311dp"
+            android:layout_height="41dp"
             android:layout_below="@+id/lista_profesores"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="52dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="41dp"
             android:layout_marginTop="62dp"
+            android:layout_marginEnd="41dp"
             android:background="@drawable/buttons_shape"
             android:text="@string/lista_seleccion_profesor_btn"
             android:textColor="@android:color/background_light" />

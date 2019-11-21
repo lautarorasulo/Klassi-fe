@@ -1,6 +1,7 @@
 package com.example.klassi_fe;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,9 @@ import com.example.klassi_fe.objetos.MenuInteracions;
 public class HomeActivity extends AppCompatActivity {
 
     MenuInteracions minteraction;
+    private String userId, userRol, userNotificacion;
+    private static final String KEY_NAME_ROL = "key_userROL";
+    static final String SHARED_PREF_NAME = "userID";
 
     Toolbar toolbar;
 
@@ -35,6 +39,8 @@ public class HomeActivity extends AppCompatActivity {
         table = (TableLayout) findViewById(R.id.home_tbl_clases);
         tablerow = new TableRow(this);
 
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        userRol = sp.getString(KEY_NAME_ROL, null);
 
         minteraction = new MenuInteracions();
 
@@ -97,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-                minteraction.irPerfi(this.getLocalClassName(),this);
+                minteraction.irPerfi(this.getLocalClassName(),this, userRol);
                 break;
             case R.id.menu_notifications:
 

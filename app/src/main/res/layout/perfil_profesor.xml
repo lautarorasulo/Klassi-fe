@@ -29,34 +29,35 @@
         android:layout_width="172dp"
         android:layout_height="73dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="372dp"
         android:layout_marginEnd="128dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/btn_horario"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/perprof_btn_materias"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/maintoolbar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/perprof_btn_materias"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="172dp"
         android:layout_height="73dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/btn_materia"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/perprof_btn_horario"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/perprof_btn_horario"
-        app:layout_constraintTop_toBottomOf="@+id/perprof_btn_horario" />
+        app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_lugar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/pnt_cnf2_imgprof"
@@ -86,14 +87,13 @@
         android:layout_width="149dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/gen_spaces"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintEnd_toStartOf="@+id/perprof_btn_setimagen2"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

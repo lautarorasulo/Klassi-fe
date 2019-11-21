@@ -102,8 +102,8 @@
     <Button
         android:id="@+id/pnt_cnf2_confirmar"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="172dp"
-        android:layout_height="73dp"
+        android:layout_width="311dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/btn_confirmar"
@@ -117,8 +117,8 @@
     <Button
         android:id="@+id/pnt_cnf2_cancelar"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="135dp"
-        android:layout_height="52dp"
+        android:layout_width="311dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/btn_cancelar"

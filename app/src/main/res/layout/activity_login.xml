@@ -9,28 +9,30 @@
 
     <Button
         android:id="@+id/reg_reg_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="48dp"
+        android:layout_width="311dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/log_button_go"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/log_register2_but3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_mail_txt" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/log_register2_but3"
-        android:layout_width="165dp"
+        android:layout_width="311dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/log_regmessage"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText

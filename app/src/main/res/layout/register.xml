@@ -111,8 +111,8 @@
 
     <Button
         android:id="@+id/reg_reg_btn"
-        android:layout_width="127dp"
-        android:layout_height="51dp"
+        android:layout_width="311dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/str_btnreg"

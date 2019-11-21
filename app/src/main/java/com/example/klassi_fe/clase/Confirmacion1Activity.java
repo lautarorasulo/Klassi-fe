@@ -109,7 +109,7 @@ public class Confirmacion1Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-                minteraction.irPerfi(this.getLocalClassName(),this);
+           //     minteraction.irPerfi(this.getLocalClassName(),this);
                 break;
             case R.id.menu_notifications:
 

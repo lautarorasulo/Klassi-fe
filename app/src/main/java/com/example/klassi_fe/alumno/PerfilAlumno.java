@@ -1,6 +1,7 @@
 package com.example.klassi_fe.alumno;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
@@ -24,6 +25,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class PerfilAlumno extends AppCompatActivity {
+
+    static final String SHARED_PREF_NAME = "userID";
+
+    static final String KEY_NAME = "key_userID";
+    private static final String KEY_NAME_ROL = "key_userROL";
+    private static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
+
+    private String userId, userRol, userNotificacion;
 
     TextView nombre,edad,zona,ultimas_materias,quieroaprender,buscoprofe;
 
@@ -52,6 +61,18 @@ public class PerfilAlumno extends AppCompatActivity {
         setimage = (Button) findViewById(R.id.perprof_btn_horario);
 
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
+
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        userId = sp.getString(KEY_NAME,null);
+        userRol = sp.getString(KEY_NAME_ROL, null);
+        userNotificacion = sp.getString(KEY_NAME_NOTIFICACION, null);
+
+
+        Log.d("tuvieja ", userId);
+        Log.d("tuvieja ", userRol);
+        Log.d("tuvieja ", userNotificacion);
+
 
         //seteo la toolbar
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
@@ -150,7 +171,7 @@ public class PerfilAlumno extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-                minteraction.irPerfi(this.getLocalClassName(),this);
+               // minteraction.irPerfi(this.getLocalClassName(),this);
                 break;
             case R.id.menu_notifications:
 
