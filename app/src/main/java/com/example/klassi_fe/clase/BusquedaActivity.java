@@ -172,12 +172,9 @@ public class BusquedaActivity extends AppCompatActivity {
 
         pos = spinnerzona.getSelectedItemPosition();
         valorzona = spinnerzona.getItemAtPosition(pos).toString();
-
         pos = spinnerhora.getSelectedItemPosition();
         valorhora = spinnerhora.getItemAtPosition(pos).toString();
-
         valorfecha = txtFecha.getText().toString();
-
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
@@ -211,15 +208,12 @@ public class BusquedaActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 
     public void prepararProfesores(String respuesta) throws JSONException {
 
         mysProfesores = new ArrayList<Profesor>();
-
         JSONObject jsonObject = new JSONObject(respuesta);
-
         JSONArray lista = jsonObject.optJSONArray("result");
 
         for(int i = 0; i < lista.length(); i++){
@@ -233,11 +227,7 @@ public class BusquedaActivity extends AppCompatActivity {
 
             mysProfesores.add(myProfesor);
         }
-
-
         cambiarActivity();
-
-
     }
 
     private void cambiarActivity(){
@@ -381,7 +371,6 @@ public class BusquedaActivity extends AppCompatActivity {
                     materiastring.add(json_data.getString("nombre"));
                     materias.add(materia);
 
-
                 }
 
                 hashmateria.addAll(materiastring);
@@ -402,11 +391,6 @@ public class BusquedaActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

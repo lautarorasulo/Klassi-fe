@@ -2,27 +2,25 @@ package com.example.klassi_fe.objetos;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.example.klassi_fe.alumno.PerfilAlumno;
-import com.example.klassi_fe.profesor.PerfilProfesorActivity;
+import com.example.klassi_fe.profesor.PerfilProfesor;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class MenuInteracions {
 
-
+    public static final String SHARED_PREF_NAME = "userID";
+    public static final String KEY_NAME = "key_userID";
+    public static final String KEY_NAME_ROL = "key_userROL";
+    public static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
 
     public void irPerfi(String s, Context c, String userRol){
 
         if(userRol.equals("Profesor")){
-            if(!s.equals("PerfilAlumno")){
-                Intent intent = new Intent(c, PerfilProfesorActivity.class);
-                c.startActivity(intent);
-            }
+            Intent intent = new Intent(c, PerfilProfesor.class);
+            c.startActivity(intent);
         }else{
             if(!s.equals("PerfilAlumno")){
                 Intent intent = new Intent(c, PerfilAlumno.class);

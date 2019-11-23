@@ -56,7 +56,7 @@
     //String de Home
     <string name="home_btntxt">Haz click aqui para generar una Clase</string>
     <string name="home_prox">Aqui estan tus proximas clases</string>
-    <string name="home_welcome">Bienvenido a tu Home! @usuario </string>
+    <string name="home_welcome">Bienvenido a tus clases!</string>
 
     //String de Busqueda
     <string name="busqueda_welcome">Selecciona las opciones para iniciar tu busqueda de profesores</string>
@@ -64,9 +64,6 @@
     <string name="seleccion_profesor_btn">Ver</string>
     <string name="seleccion_profesor_nombre">Nombre</string>
     <string name="lista_seleccion_profesor_btn">Atras</string>
-
-
-
 
 
     //String de Profesores
