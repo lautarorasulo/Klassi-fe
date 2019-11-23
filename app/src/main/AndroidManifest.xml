@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".clase.ConfirmarClaseActivity"></activity>
+        <activity android:name=".clase.Confirmacion1Activity"></activity>
         <activity android:name=".profesor.HorariosActivity"></activity>
         <activity android:name=".profesor.PerfilProfesorActivity"></activity>
         <activity android:name=".clase.ProfesoresActivity"></activity>
@@ -24,7 +25,6 @@
         <activity android:name=".autenticacion.LoginActivity"></activity>
         <activity android:name=".profesor.ClasesPendienteDosBotones"></activity>
         <activity android:name=".materiasActivity"></activity>
-        <activity android:name=".Confirmacion2Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

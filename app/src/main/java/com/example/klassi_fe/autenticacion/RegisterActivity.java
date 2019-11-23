@@ -21,7 +21,6 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -113,7 +112,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void registrarUser(){
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
-        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getString(R.string.postrregister), null, new Response.Listener<JSONObject>() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST,  getString(R.string.postRegister), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -134,8 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
             params.put("email" , txt_email.getText().toString());
             params.put("password" , txt_pwd.getText().toString());
             params.put("descripcion" , "Usuario de tipo: " + tipoUsuario);
-
-            Log.d("AgregandoMateria", "AgregarMateria" + params);
             return params;
         }
         };
