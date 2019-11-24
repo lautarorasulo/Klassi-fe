@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     EditText txt_name, txt_apellido, txt_email, txt_pwd;
-    Button btn_reg;
+    Button btn_reg, btnAtras;
     RadioButton rb1, rb2;
     ImageView logo;
     String tipoUsuario;
@@ -48,11 +48,22 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         btn_reg = (Button) findViewById(R.id.reg_reg_btn);
-
+        btnAtras = (Button) findViewById(R.id.register_botones_atras);
         btn_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 checkRegister();
+            }
+        });
+
+        btnAtrasAction();
+    }
+
+    public void btnAtrasAction(){
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
