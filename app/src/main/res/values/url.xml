@@ -11,7 +11,9 @@
     <string name="getProfesor">https://klassi-3.herokuapp.com/api/profesores/</string>
     <string name="addHora">https://klassi-3.herokuapp.com/api/profesor/addhoras</string>
     <string name="deleteHora">https://klassi-3.herokuapp.com/api/profesor/removeHora</string>
+    <string name="agregarMateria">https://klassi-3.herokuapp.com/api/profesor/generarMateria</string>
     <string name="clasesNotificadas">https://klassi-3.herokuapp.com/api/getClasesNotificadas/</string>
     <string name="generarClase">https://klassi-3.herokuapp.com/api/clase</string>
+    <string name="informacionAdicional">https://klassi-3.herokuapp.com/api/profesores/format/</string>
 
 </resources>

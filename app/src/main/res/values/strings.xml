@@ -72,6 +72,10 @@
     <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>
     <string name="home_profesor">Bienvenido Profe !</string>
     <string name="titulo_home_profesor">Estas son tus ultimas clases aceptadas:</string>
+    <string name="home_profesor_zonas">Zonas: </string>
+    <string name="home_profesor_materias">Materias: </string>
+    <string name="home_filtros">Filtros seleccionados:</string>
+
 
     //String de boton
     <string name="Agregar">Agregar</string>

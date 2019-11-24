@@ -183,8 +183,6 @@ public class PerfilProfesor extends AppCompatActivity {
         comentarios.setText("Comentario: \n" +profe.optJSONObject("result").getString("descripcion"));
         horas = profe.optJSONObject("result").getJSONArray("horas");
         profesorMaterias = profe.optJSONObject("result").getJSONArray("materias");
-
-        Log.d("PROFESOR COMPLETO : ", " = " + profe);
     }
 
     @Override
@@ -244,7 +242,48 @@ public class PerfilProfesor extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void postMateria(String materia, String escolaridad, boolean agregar){
+    private void postMateria(final String materia, final String escolaridad, boolean agregar){
+        String url = "";
+
+        if(agregar){
+            url = getString(R.string.agregarMateria);
+            // url = "http://192.168.100.116:3001/api/profesor/addhoras";
+        } else {
+            url = getString(R.string.deleteHora);
+            // url = "http://192.168.100.116:3001/api/profesor/removeHora";
+        }
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loading.dismiss();
+                try {
+                    //Log.d("PROFESOR MATERIAS ", " : " + response);
+                    profesorMaterias = new JSONObject(response).getJSONArray("result");
+                    Log.d("profesorMaterias", " : " + profesorMaterias.optJSONObject(0).getString("nombre"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<>();
+            params.put("idProfesor", userId);
+            params.put("materia", materia);
+            params.put("escolaridad", escolaridad);
+            return params;
+        }
+        };
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
     }
 
@@ -299,10 +338,9 @@ public class PerfilProfesor extends AppCompatActivity {
                 for(int i = 0; i < addEscolaridad.size(); i++){
                     postMateria(materia, addEscolaridad.get(i), true);
                 }
-                for(int j = 0; j < deleteEscolaridad.size(); j++){
+            /*    for(int j = 0; j < deleteEscolaridad.size(); j++){
                     postMateria(materia, deleteEscolaridad.get(j), false);
-
-                }
+                }*/
             }
         });
         // Boton cancelar
@@ -329,7 +367,7 @@ public class PerfilProfesor extends AppCompatActivity {
         final String[] materias = new String[]{
                 "Matematica",
                 "Lengua",
-                "Qumica",
+                "Quimica",
                 "Literatura",
                 "Fisica",
                 "Naturales",
@@ -349,9 +387,10 @@ public class PerfilProfesor extends AppCompatActivity {
         for(int i = 0; i < materias.length; i++){
             int j = 0;
             boolean flag = true;
-
+            Log.d("profesorMaterias ", " = " + profesorMaterias.getJSONObject(i).getString("nombre"));
+            //profesorMaterias.optJSONObject(i).getString("nombre");
             while( j < profesorMaterias.length() && flag ){
-                if(materias[i].equals(profesorMaterias.optJSONObject(j).getString("nombre").toString())){
+                if(materias[i].equals(profesorMaterias.getJSONObject(j).getString("nombre"))){
                     checkedMaterias[i] = true;
                     flag = false;
                 } else {
@@ -372,6 +411,7 @@ public class PerfilProfesor extends AppCompatActivity {
                 String currentItem = materiasList.get(which);
 
                 selectEscolaridad(currentItem);
+                dialog.dismiss();
             }
         });
 
@@ -381,13 +421,6 @@ public class PerfilProfesor extends AppCompatActivity {
         // Titulo del dialog
         builder.setTitle("Agregar Materia");
 
-        // Boton guardar
-       /* builder.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selectEscolaridad(addMateria, deleteMateria);
-            }
-        });*/
         // Boton cancelar
         builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override

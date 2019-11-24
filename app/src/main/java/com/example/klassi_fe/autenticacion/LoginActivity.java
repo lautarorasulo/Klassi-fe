@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if( "Profesor".equals(userID[9])){
                                     Intent intent = new Intent(LoginActivity.this , ProfesorHomeActivity.class);
                                     startActivity(intent);
-                                    if(":false}}".equals(userID[12])){
+                                    if(!":false}}".equals(userID[12])){
                                         Toast.makeText(getApplicationContext(), "Tiene clases para confirmar", Toast.LENGTH_LONG).show();
                                     }
                                 } else {

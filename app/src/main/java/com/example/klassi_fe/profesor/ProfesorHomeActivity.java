@@ -34,8 +34,10 @@ public class ProfesorHomeActivity extends AppCompatActivity {
     private MenuInteracions minteraction;
     private String userId, userRol, userNotificacion;
     private Toolbar toolbar;
-    private LinearLayout clasesNotificadas;
+    private LinearLayout clasesNotificadas, linearMaterias, linearZonas;
     private ArrayList<ObjetoClase> mysClases;
+    JSONArray materias;
+    JSONArray zonas;
 
 
     @Override
@@ -50,11 +52,38 @@ public class ProfesorHomeActivity extends AppCompatActivity {
         userNotificacion = sp.getString(minteraction.KEY_NAME_NOTIFICACION, null);
 
         clasesNotificadas = (LinearLayout) findViewById(R.id.profesor_home_clases_notificadas);
+        linearMaterias = (LinearLayout) findViewById(R.id.layout_materias);
+        linearZonas = (LinearLayout) findViewById(R.id.layout_zonas);
         mysClases = new ArrayList<ObjetoClase>();
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar_home_profesor);
         setSupportActionBar(toolbar);
 
         fillClasesOnTable();
+        buscarInformacionAdicional();
+    }
+
+    private void cargarLinearZonas() throws JSONException {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for(int i = 0; i < zonas.length(); i++){
+            String myZona = zonas.optJSONObject(i).getString("nombre");
+            View view  = inflater.inflate(R.layout.simple_layout, linearZonas, false);
+            TextView detallesProfesor = view.findViewById(R.id.detalles_profesor);
+
+            detallesProfesor.setText(myZona);
+            linearZonas.addView(view);
+        }
+    }
+
+    private void cargarLinearMaterias() throws JSONException {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for(int i = 0; i < materias.length(); i++){
+            String myMateria = materias.optJSONObject(i).getString("nombre") + " - " + materias.optJSONObject(i).getString("escolaridad");
+            View view  = inflater.inflate(R.layout.simple_layout, linearMaterias, false);
+            TextView detallesProfesor = view.findViewById(R.id.detalles_profesor);
+
+            detallesProfesor.setText(myMateria);
+            linearMaterias.addView(view);
+        }
     }
 
     private void CargarLinerLayout(){
@@ -100,6 +129,38 @@ public class ProfesorHomeActivity extends AppCompatActivity {
             mysClases.add(myClase);
         }
         CargarLinerLayout();
+    }
+
+    private void parseInfoAdicional(JSONObject response) throws JSONException {
+        materias = response.optJSONObject("result").getJSONArray("materias");
+        zonas = response.optJSONObject("result").getJSONArray("zonas");
+        cargarLinearMaterias();
+        cargarLinearZonas();
+    }
+
+    private void buscarInformacionAdicional(){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.informacionAdicional) + userId, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                try {
+                    parseInfoAdicional(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void fillClasesOnTable() {
