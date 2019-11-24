@@ -1,5 +1,6 @@
 package com.example.klassi_fe.alumno;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,32 +18,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.objetos.MenuInteracions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class PerfilAlumno extends AppCompatActivity {
 
-    static final String SHARED_PREF_NAME = "userID";
-
-    static final String KEY_NAME = "key_userID";
-    private static final String KEY_NAME_ROL = "key_userROL";
-    private static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
-
     private String userId, userRol, userNotificacion;
-
-    TextView nombre,edad,zona,ultimas_materias,quieroaprender,buscoprofe;
-
-    Toolbar toolbar;
-
-    Button setimage;
-
-    ImageView perfil;
-
-    MenuInteracions minteraction;
+    private TextView nombre,apellido,mail,ultimas_materias,quieroaprender,buscoprofe;
+    private Toolbar toolbar;
+    private Button setimage, btnAtras;
+    private ImageView perfil;
+    private MenuInteracions minteraction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,40 +50,41 @@ public class PerfilAlumno extends AppCompatActivity {
 
         minteraction = new MenuInteracions();
 
-        nombre = findViewById(R.id.pnt_cnf2_nomal);
-        edad = findViewById(R.id.perprof_txt_apellido);
-        zona= findViewById(R.id.pnt_cnf2_mailal);
+        nombre = (TextView) findViewById(R.id.pnt_cnf2_nomal);
+        apellido = (TextView) findViewById(R.id.perprof_txt_apellido);
+        mail = (TextView) findViewById(R.id.pnt_cnf2_mailal);
         ultimas_materias = findViewById(R.id.pnt_cnf2_lugar);
-        quieroaprender= findViewById(R.id.perprof_txt_setearHorario);
-        buscoprofe = findViewById(R.id.perfal_txt_buscoprofe);
-
+        quieroaprender = findViewById(R.id.perprof_txt_setearHorario);
+        buscoprofe = (TextView) findViewById(R.id.perfal_txt_buscoprofe);
         setimage = (Button) findViewById(R.id.perprof_btn_horario);
-
+        btnAtras = (Button) findViewById(R.id.perfil_alumno_atras);
         perfil = (ImageView) findViewById(R.id.pnt_cnf2_imgprof);
 
-        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
-
-        userId = sp.getString(KEY_NAME,null);
-        userRol = sp.getString(KEY_NAME_ROL, null);
-        userNotificacion = sp.getString(KEY_NAME_NOTIFICACION, null);
-
-
-        Log.d("tuvieja ", userId);
-        Log.d("tuvieja ", userRol);
-        Log.d("tuvieja ", userNotificacion);
-
+        SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
+        userId = sp.getString(minteraction.KEY_NAME,null);
+        userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
+        userNotificacion = sp.getString(minteraction.KEY_NAME_NOTIFICACION, null);
 
         //seteo la toolbar
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
         CargoPerfil();
-
+        btnAtrasAction();
 
         setimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CrearImagen();
+            }
+        });
+    }
+
+    public void btnAtrasAction(){
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -100,12 +100,29 @@ public class PerfilAlumno extends AppCompatActivity {
         //Tambien voy a buscar si esta la imagen del usuario grabada en el dispositivo. en caso
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
 
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.getProfesor) + userId, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                try {
+                    mapearDatos(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        nombre.setText("Nombre: "+ "juan perez");
-        edad.setText("Edad: "+ "10");
-        zona.setText("zona: "+"caballito");
-        quieroaprender.setText("Materias: " + "lengua, matematicas, etc");
-        buscoprofe.setText("Busco profesor:" + "que enseñe de manera lenta y efectiva");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
 
         //busco Imagen en File system
         File file;
@@ -117,14 +134,17 @@ public class PerfilAlumno extends AppCompatActivity {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
-
         if(imagenperfil != null ){
             perfil.setImageBitmap(imagenperfil);
         }
 
+    }
 
-
+    public void mapearDatos(JSONObject profe) throws JSONException {
+        nombre.setText(profe.optJSONObject("result").getString("nombre"));
+        apellido.setText(profe.optJSONObject("result").getString("apellido"));
+        mail.setText(profe.optJSONObject("result").getString("email"));
+        buscoprofe.setText(profe.optJSONObject("result").getString("descripcion"));
     }
 
 
@@ -132,8 +152,6 @@ public class PerfilAlumno extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        Log.d("asd", "onActivityResult: llego aca");
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         perfil.setImageBitmap(bitmap);
         SaveImage(bitmap);
@@ -152,11 +170,9 @@ public class PerfilAlumno extends AppCompatActivity {
             FileOutputStream out = new FileOutputStream(savefile);
             imagenasalvar.compress(Bitmap.CompressFormat.JPEG,90,out);
             out.close();
-            Log.d("Image de save", "SaveImage: Grabo la imagen???"+savefile.toString());
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
     }
 
@@ -181,6 +197,9 @@ public class PerfilAlumno extends AppCompatActivity {
                 break;
             case R.id.menu_aboutUs:
                 minteraction.mostrarAboutUs("",this);
+                break;
+            case R.id.menu_home:
+                minteraction.goToHome(this,userRol);
                 break;
         }
 

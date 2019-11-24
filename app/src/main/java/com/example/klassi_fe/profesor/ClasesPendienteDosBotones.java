@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,8 +37,6 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
     private ListView listView;
     private Toolbar toolbar;
     private Button btnAtras;
-
-
 
 
     @Override
@@ -86,11 +86,11 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
             for(int i = 0; i < lista.length(); i++){
                 JSONObject json_data = lista.getJSONObject(i);
                 ObjetoClase myClase = new ObjetoClase();
+                myClase.set_id(json_data.getString("_id"));
                 myClase.setAlumno("Alumno: "+json_data.getString("alumno"));
                 myClase.setHorario("Horario: "+json_data.getString("fecha") +" - "+(json_data.getString("hora")));
                 myClase.setMateria("Materia: "+json_data.getString("materia"));
                 myClase.setZona("Zona: "+json_data.getString("zona"));
-
 
                 mysClases.add(myClase);
 
@@ -129,6 +129,13 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu1,menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
@@ -142,6 +149,9 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
                 break;
             case R.id.menu_aboutUs:
                 minteraction.mostrarAboutUs("",this);
+                break;
+            case R.id.menu_home:
+                minteraction.goToHome(this,userRol);
                 break;
         }
 

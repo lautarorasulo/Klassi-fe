@@ -49,7 +49,7 @@ public class PerfilProfesor extends AppCompatActivity {
     private String userId, userRol, userNotificacion;
     private TextView nombre,apellido,mail,comentarios;
     private Toolbar toolbar;
-    private Button setimage, setHorarios;
+    private Button setimage, setHorarios, btnAtras;
     private ImageView perfil;
     private MenuInteracions minteraction;
     private JSONArray horas;
@@ -66,6 +66,7 @@ public class PerfilProfesor extends AppCompatActivity {
         apellido = (TextView) findViewById(R.id.perfil_profesor_apellido);
         mail = (TextView) findViewById(R.id.pnt_cnf2_mailal);
         setHorarios = (Button) findViewById(R.id.perprof_btn_horario);
+        btnAtras = (Button) findViewById(R.id.perfil_profesor_atras);
 
         // datos de mi usuario logeado
         SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
@@ -79,6 +80,16 @@ public class PerfilProfesor extends AppCompatActivity {
 
         setHorarios();
         CargoPerfil();
+        btnAtrasAction();
+    }
+
+    public void btnAtrasAction(){
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void setHorarios(){
@@ -197,6 +208,10 @@ public class PerfilProfesor extends AppCompatActivity {
             case R.id.menu_aboutUs:
                 minteraction.mostrarAboutUs("", this);
                 break;
+            case R.id.menu_home:
+                minteraction.goToHome(this,userRol);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -243,7 +258,6 @@ public class PerfilProfesor extends AppCompatActivity {
         for(int i = 0; i < horarios.length; i++){
             int j = 0;
             boolean flag = true;
-         //   Log.d("VER DATOS", "Horarios: " + horarios[i]);
 
             while( j < horas.length() && flag ){
                 if(horarios[i].equals(horas.get(j).toString())){
@@ -334,7 +348,6 @@ public class PerfilProfesor extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
-                Log.d("asdasd", "onResponse: "+response);
             }
         }, new Response.ErrorListener() {
             @Override

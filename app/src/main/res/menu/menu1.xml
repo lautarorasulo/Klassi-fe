@@ -14,7 +14,12 @@
         android:title="Notifications"
         app:showAsAction="ifRoom"
         />
-
+    <item
+        android:id="@+id/menu_home"
+        android:title="Home"
+        app:showAsAction="never"
+        />
+    
     <item
         android:id="@+id/menu_share"
         android:title="share"
@@ -25,4 +30,5 @@
         android:title="AboutUs"
         app:showAsAction="never"
         />
+
 </menu>

@@ -178,6 +178,9 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.menu_aboutUs:
                 minteraction.mostrarAboutUs("",this);
                 break;
+            case R.id.menu_home:
+               // minteraction.goToHome(this,userRol);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -9,6 +9,57 @@
     android:theme="@style/fontStyleAB">
 
 
+    <include
+        android:id="@+id/maintoolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_nomal"
+        android:layout_width="148dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar" />
+
+    <TextView
+        android:id="@+id/perprof_txt_apellido"
+        android:layout_width="146dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal" />
+
+    <TextView
+        android:id="@+id/pnt_cnf2_mailal"
+        android:layout_width="149dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/gen_spaces"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perprof_txt_apellido"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/pnt_cnf2_imgprof"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maintoolbar"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        tools:srcCompat="@tools:sample/avatars[1]"
+        android:contentDescription="@string/app_name" />
+
     <Button
         android:id="@+id/perprof_btn_horario"
         style="@style/Widget.AppCompat.Button.Small"
@@ -23,55 +74,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_imgprof" />
 
-    <ImageView
-        android:id="@+id/pnt_cnf2_imgprof"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maintoolbar"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        tools:srcCompat="@tools:sample/avatars[1]" />
-
-    <TextView
-        android:id="@+id/perprof_txt_apellido"
-        android:layout_width="146dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/gen_spaces"
-        app:layout_constraintEnd_toEndOf="@+id/pnt_cnf2_nomal"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pnt_cnf2_nomal" />
-
-    <TextView
-        android:id="@+id/pnt_cnf2_nomal"
-        android:layout_width="148dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/gen_spaces"
-        app:layout_constraintEnd_toStartOf="@+id/pnt_cnf2_imgprof"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maintoolbar" />
-
-    <TextView
-        android:id="@+id/pnt_cnf2_mailal"
-        android:layout_width="149dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/gen_spaces"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/perprof_txt_apellido"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perprof_txt_apellido"
-        app:layout_constraintVertical_bias="0.0" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="322dp" />
 
     <TextView
         android:id="@+id/perprof_txt_setearHorario"
@@ -81,20 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="322dp" />
-
-    <include
-        android:id="@+id/maintoolbar"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/perfal_txt_buscoprofe"
@@ -106,19 +100,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/perprof_txt_setearHorario" />
 
-    <TextView
-        android:id="@+id/pnt_cnf2_lugar"
-        android:layout_width="304dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/gen_spaces"
+    <Button
+        android:id="@+id/perfil_alumno_atras"
+        android:layout_width="311dp"
+        android:layout_height="41dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttons_shape"
+        android:text="@string/lista_seleccion_profesor_btn"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfal_txt_buscoprofe"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
