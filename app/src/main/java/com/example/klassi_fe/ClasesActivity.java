@@ -44,7 +44,6 @@ public class ClasesActivity extends AppCompatActivity {
            //     minteraction.irPerfi(this.getLocalClassName(),this);
                 break;
             case R.id.menu_notifications:
-
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil alumnno",this);

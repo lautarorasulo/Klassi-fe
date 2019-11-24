@@ -56,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
         userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
         userId = sp.getString(minteraction.KEY_NAME, null);
+        userNotificacion = sp.getString(minteraction.KEY_NAME_NOTIFICACION, null);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
@@ -69,9 +70,9 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, BusquedaActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-
 
 
     }
@@ -111,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
     private void fillClasesOnTable() {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://192.168.100.116:3001/api/getClasesNotificadas/5dc5947ef011a50394553f9b", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.clasesNotificadas) + userId, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 loading.dismiss();
@@ -132,27 +133,9 @@ public class HomeActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
-
-        //voy a buscar en el backend si existen clases diponibles, en caso que existan voy a llenar
-        //el Table layout con las clases del alumno.
-
-
-
-
-        /*tablerow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        TextView txt = new TextView(this);
-        txt.setText("dasdfadf, asdfasdfasdf");
-        txt.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        tablerow.addView(txt);
-
-        table.addView(tablerow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT));*/
     }
 
     private void showListView(JSONObject obj) throws JSONException {
-        Log.d("showListView", " = " +obj);
         ObjetoClase myClase;
         JSONArray lista = obj.optJSONArray("result");
         for(int i = 0; i < lista.length(); i++){
@@ -187,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
                 minteraction.irPerfi(this.getLocalClassName(),this, userRol);
                 break;
             case R.id.menu_notifications:
-
+                minteraction.irClasesPendientes(this, userRol);
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil alumnno",this);

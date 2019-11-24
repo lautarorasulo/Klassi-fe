@@ -12,7 +12,8 @@
         <TextView
             android:id="@+id/nombre_profesor"
             android:layout_width="238dp"
-            android:layout_height="48dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
             android:text="@string/seleccion_profesor_nombre" />
 
         <Button

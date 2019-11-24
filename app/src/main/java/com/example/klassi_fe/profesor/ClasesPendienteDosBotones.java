@@ -1,9 +1,14 @@
 package com.example.klassi_fe.profesor;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.adapters.AdapterClasesPendientes;
+import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.ObjetoClase;
 
 import org.json.JSONArray;
@@ -23,9 +29,13 @@ import java.util.ArrayList;
 
 public class ClasesPendienteDosBotones extends AppCompatActivity {
 
+    MenuInteracions minteraction;
+    private String userId, userRol, userNotificacion;
     private String DATA_URL2;
     private ListView listView;
-    private String id;
+    private Toolbar toolbar;
+    private Button btnAtras;
+
 
 
 
@@ -33,15 +43,34 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clases_pendiente_dos_botones);
+        minteraction = new MenuInteracions();
+        SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
+        userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
+        userId = sp.getString(minteraction.KEY_NAME, null);
+        userNotificacion = sp.getString(minteraction.KEY_NAME_NOTIFICACION, null);
 
-        id = "";
+        btnAtras = (Button) findViewById(R.id.clase_pendientes_dos_botones);
 
-        DATA_URL2 = getString(R.string.clases_a_notificar) + id;
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar_dos_botones);
+        setSupportActionBar(toolbar);
+
+
+        DATA_URL2 = getString(R.string.clases_a_notificar) + userId;
         listView = (ListView) findViewById(R.id.lista_pendientes_dos_botones);
 
+        btnAtrasAction();
         invocarServicio();
 
 
+    }
+
+    public void btnAtrasAction(){
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void showListView(JSONObject obj){
@@ -68,11 +97,8 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
             }
             AdapterClasesPendientes adapterListaProfesores = new AdapterClasesPendientes(this, mysClases);
             listView.setAdapter(adapterListaProfesores);
-
-
-
         }catch (Exception ex){
-            Toast.makeText(this, "Error carga lista: "+ex.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error carga lista: No hay clases pendientes", Toast.LENGTH_LONG).show();
         }finally {
 
         }
@@ -100,6 +126,26 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_User:
+                minteraction.irPerfi(this.getLocalClassName(),this, userRol);
+                break;
+            case R.id.menu_notifications:
+           //     minteraction.irClasesPendientes(this);
+                break;
+            case R.id.menu_share:
+                minteraction.hacerShare("Shareado desde perfil alumnno",this);
+                break;
+            case R.id.menu_aboutUs:
+                minteraction.mostrarAboutUs("",this);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

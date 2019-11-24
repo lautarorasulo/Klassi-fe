@@ -65,6 +65,8 @@
     <string name="seleccion_profesor_nombre">Nombre</string>
     <string name="lista_seleccion_profesor_btn">Atras</string>
 
+    <string name="clases_dos_botones">Clases a confirmar</string>
+
 
     //String de Profesores
     <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>

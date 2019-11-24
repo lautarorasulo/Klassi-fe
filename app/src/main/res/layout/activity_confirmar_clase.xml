@@ -25,6 +25,7 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_nomal"
         app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <ImageView
@@ -36,6 +37,7 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_nomprof"
         app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <TextView
@@ -63,7 +65,7 @@
         android:layout_width="148dp"
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/gen_spaces"
         app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_lugar"
         app:layout_constraintStart_toStartOf="parent" />
@@ -73,7 +75,7 @@
         android:layout_width="148dp"
         android:layout_height="26dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/gen_spaces"
         app:layout_constraintBottom_toTopOf="@+id/pnt_cnf2_lugar"
         app:layout_constraintEnd_toEndOf="parent" />

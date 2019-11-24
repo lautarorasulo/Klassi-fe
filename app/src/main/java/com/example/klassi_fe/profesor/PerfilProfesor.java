@@ -189,7 +189,7 @@ public class PerfilProfesor extends AppCompatActivity {
                 //  minteraction.irPerfi(this.getLocalClassName(), this, userRol);
                 break;
             case R.id.menu_notifications:
-
+                minteraction.irClasesPendientes(this, userRol);
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil profesor", this);
@@ -326,7 +326,7 @@ public class PerfilProfesor extends AppCompatActivity {
         if(addHora){
             url = getString(R.string.addHora);
         } else {
-            url = "DELETE PROFESOR";
+            url = getString(R.string.deleteHora);
         }
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 

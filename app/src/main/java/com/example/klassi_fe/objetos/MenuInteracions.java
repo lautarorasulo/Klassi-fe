@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.EditText;
 
 import com.example.klassi_fe.alumno.PerfilAlumno;
+import com.example.klassi_fe.profesor.ClasesPendienteDosBotones;
 import com.example.klassi_fe.profesor.PerfilProfesor;
 
 
@@ -26,6 +27,14 @@ public class MenuInteracions {
                 Intent intent = new Intent(c, PerfilAlumno.class);
                 c.startActivity(intent);
             }
+        }
+    }
+
+
+    public  void irClasesPendientes(Context c, String userRol){
+        if(userRol.equals("Profesor")){
+            Intent intent = new Intent(c, ClasesPendienteDosBotones.class);
+            c.startActivity(intent);
         }
 
     }

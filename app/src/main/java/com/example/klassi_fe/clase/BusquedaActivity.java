@@ -3,6 +3,7 @@ package com.example.klassi_fe.clase;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -48,19 +49,18 @@ import java.util.Map;
 
 public class BusquedaActivity extends AppCompatActivity {
 
-    MenuInteracions minteraction;
+    private MenuInteracions minteraction;
+    private String userId, userRol, userNotificacion;
+    private Toolbar toolbar;
+    private Materia materia;
+    private List<Materia> materias;
+    private List<Zona> myZonas;
+    private ArrayList<Profesor> mysProfesores;
 
-    Toolbar toolbar;
+    private Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
+    private Button busqueda;
 
-    Materia materia;
-    List<Materia> materias;
-    List<Zona> myZonas;
-    ArrayList<Profesor> mysProfesores;
-
-    Spinner spinnermateria,spinnerescolaridad,spinnerzona, spinnerhora;
-    Button busqueda;
-
-    TextView prueba, datepicker;
+    private TextView prueba, datepicker;
 
     private int mYear;
     private int mMonth;
@@ -74,6 +74,9 @@ public class BusquedaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_busqueda);
 
         minteraction = new MenuInteracions();
+        SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
+        userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
+        userId = sp.getString(minteraction.KEY_NAME, null);
 
         materias = new ArrayList<Materia>();
         myZonas = new ArrayList<Zona>();
@@ -197,7 +200,6 @@ public class BusquedaActivity extends AppCompatActivity {
         }){
                 protected Map<String, String> getParams() {
                 Map<java.lang.String, java.lang.String> params = new HashMap<>();
-
                 params.put("idZona",buscarIdZona((ArrayList<Zona>) myZonas, valorzona));
                 params.put("idMateria", valormateria);
                 params.put("fecha", valorfecha);
@@ -234,8 +236,12 @@ public class BusquedaActivity extends AppCompatActivity {
         Intent intent = new Intent(BusquedaActivity.this, ProfesoresActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("ListaProfesores", mysProfesores);
+        bundle.putString("fecha", txtFecha.getText().toString());
+        bundle.putString("hora", spinnerhora.getItemAtPosition(spinnerhora.getSelectedItemPosition()).toString());
+        bundle.putString("zona",  spinnerzona.getItemAtPosition(spinnerzona.getSelectedItemPosition()).toString());
         intent.putExtras(bundle);
         startActivity(intent);
+
     }
 
 
@@ -279,18 +285,18 @@ public class BusquedaActivity extends AppCompatActivity {
 
         List<String> horarios = new ArrayList<String>();
 
-        horarios.add("08");
-        horarios.add("09");
-        horarios.add("10");
-        horarios.add("11");
-        horarios.add("12");
-        horarios.add("13");
-        horarios.add("14");
-        horarios.add("15");
-        horarios.add("16");
-        horarios.add("17");
-        horarios.add("18");
-        horarios.add("19");
+        horarios.add("08:00");
+        horarios.add("09:00");
+        horarios.add("10:00");
+        horarios.add("11:00");
+        horarios.add("12:00");
+        horarios.add("13:00");
+        horarios.add("14:00");
+        horarios.add("15:00");
+        horarios.add("16:00");
+        horarios.add("17:00");
+        horarios.add("18:00");
+        horarios.add("19:00");
 
 
         ArrayAdapter<String> adapterhorarios =
@@ -332,8 +338,6 @@ public class BusquedaActivity extends AppCompatActivity {
             List<String> idzonas = new ArrayList<String>();
             List<String> materiastring = new ArrayList<String>();
             HashSet<String> hashmateria = new HashSet<String>();
-
-
 
             JSONArray lista = obj.optJSONArray("result");
 
@@ -402,10 +406,10 @@ public class BusquedaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-           //     minteraction.irPerfi(this.getLocalClassName(),this);
+                minteraction.irPerfi(this.getLocalClassName(),this, userRol);
                 break;
             case R.id.menu_notifications:
-
+                minteraction.irClasesPendientes(this, userRol);
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil alumnno",this);

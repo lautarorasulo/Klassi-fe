@@ -1,37 +1,59 @@
 package com.example.klassi_fe.clase;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.klassi_fe.ClasesActivity;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.objetos.MenuInteracions;
+import com.example.klassi_fe.objetos.Profesor;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
 public class ConfirmarClaseActivity extends AppCompatActivity {
 
+    private MenuInteracions minteraction;
+    private String userId, userRol, userNotificacion;
+
     private TextView nombreal,nombreprof,mailal,mailprof,lugar,hora;
     private Toolbar toolbar;
     private Button confirmar, cancelar;
     private ImageView perfilal, perfilprof;
-    private MenuInteracions minteraction;
+    private Profesor myProfesor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmar_clase);
+        myProfesor = new Profesor();
+        Bundle bundle = getIntent().getExtras();
+        myProfesor = bundle.getParcelable("profesor");
+
 
         minteraction = new MenuInteracions();
+        SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
+        userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
+        userId = sp.getString(minteraction.KEY_NAME, null);
 
         confirmar = (Button) findViewById(R.id.pnt_cnf2_confirmar);
         cancelar = (Button) findViewById(R.id.pnt_cnf2_cancelar);
@@ -46,10 +68,44 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
-        CargoPerfiles();
+        buscarDatosAlumno();
+        // CargoPerfiles();
         cargoDatosClase();
         Confirmar();
         Cancelar();
+    }
+
+    private void buscarDatosAlumno() {
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.getProfesor) + userId, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                try {
+                    mapearDatos(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void mapearDatos(JSONObject user) throws JSONException {
+        nombreal.setText(user.optJSONObject("result").getString("nombre"));
+       // apellido.setText(user.optJSONObject("result").getString("apellido"));
+        mailal.setText(user.optJSONObject("result").getString("email"));
+        nombreprof.setText(myProfesor.getNombre());
+        mailprof.setText(myProfesor.getMail());
     }
 
     private void CargoPerfiles() {
@@ -57,13 +113,6 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
         //una vez cargado, voy a reflejarlo en los Textview
         //Tambien voy a buscar si esta la imagen del usuario grabada en el dispositivo. en caso
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
-
-
-        nombreal.setText("Alumno");
-        nombreprof.setText("Profesor");
-        mailal.setText("Perez");
-        mailprof.setText("Rodrigez");
-
 
         //busco Imagen en File system
         File file;
@@ -84,8 +133,8 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
 
     private void cargoDatosClase(){
         //aca se carga hora y lugar seteados por el usuario al momento de elegir una clase
-        hora.setText("19:45");
-        lugar.setText("Brandsen 805 - La Bombonera");
+        hora.setText(ProfesoresActivity.hora + " " + ProfesoresActivity.fecha);
+        lugar.setText(ProfesoresActivity.zona);
     }
 
     private void Confirmar(){
@@ -109,5 +158,25 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_User:
+                minteraction.irPerfi(this.getLocalClassName(),this, userRol);
+                break;
+            case R.id.menu_notifications:
+                minteraction.irClasesPendientes(this, userRol);
+                break;
+            case R.id.menu_share:
+                minteraction.hacerShare("Shareado desde perfil alumnno",this);
+                break;
+            case R.id.menu_aboutUs:
+                minteraction.mostrarAboutUs("",this);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

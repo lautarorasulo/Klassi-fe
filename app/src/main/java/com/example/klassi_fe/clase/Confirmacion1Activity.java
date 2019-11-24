@@ -1,6 +1,7 @@
 package com.example.klassi_fe.clase;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +23,13 @@ import java.io.File;
 
 public class Confirmacion1Activity extends AppCompatActivity {
 
+    private MenuInteracions minteraction;
+    private String userId, userRol, userNotificacion;
+
     private TextView nombre,mail,comentarios,apellido;
     private Toolbar toolbar;
     private Button confirmar;
     private ImageView perfil;
-    private MenuInteracions minteraction;
     private Profesor myProfesor;
 
     @Override
@@ -39,6 +42,9 @@ public class Confirmacion1Activity extends AppCompatActivity {
         myProfesor = bundle.getParcelable("profesor");
 
         minteraction = new MenuInteracions();
+        SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
+        userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
+        userId = sp.getString(minteraction.KEY_NAME, null);
 
         nombre = (TextView) findViewById(R.id.pnt_cnf2_nomal);
         apellido = (TextView) findViewById(R.id.pnt_cnf2_apellido);
@@ -93,7 +99,11 @@ public class Confirmacion1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Confirmacion1Activity.this, ConfirmarClaseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("profesor", myProfesor);
+                intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -109,10 +119,10 @@ public class Confirmacion1Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_User:
-           //     minteraction.irPerfi(this.getLocalClassName(),this);
+                minteraction.irPerfi(this.getLocalClassName(),this, userRol);
                 break;
             case R.id.menu_notifications:
-
+                minteraction.irClasesPendientes(this, userRol);
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil alumnno",this);

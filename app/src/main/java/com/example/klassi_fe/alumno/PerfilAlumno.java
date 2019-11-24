@@ -174,7 +174,7 @@ public class PerfilAlumno extends AppCompatActivity {
                // minteraction.irPerfi(this.getLocalClassName(),this);
                 break;
             case R.id.menu_notifications:
-
+                minteraction.irClasesPendientes(this, userRol);
                 break;
             case R.id.menu_share:
                 minteraction.hacerShare("Shareado desde perfil alumnno",this);
