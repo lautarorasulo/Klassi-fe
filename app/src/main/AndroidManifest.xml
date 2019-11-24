@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".profesor.PerfilProfesor"></activity>
+        <activity android:name=".profesor.ProfesorHomeActivity"></activity>
+        <activity android:name=".profesor.PerfilProfesor" />
         <activity android:name=".clase.ConfirmarClaseActivity" />
         <activity android:name=".clase.Confirmacion1Activity" />
         <activity android:name=".profesor.HorariosActivity" />

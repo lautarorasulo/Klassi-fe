@@ -122,10 +122,14 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
             }
         });
 
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     @Override

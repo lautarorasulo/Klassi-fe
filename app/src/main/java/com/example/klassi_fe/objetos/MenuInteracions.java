@@ -9,6 +9,7 @@ import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.alumno.PerfilAlumno;
 import com.example.klassi_fe.profesor.ClasesPendienteDosBotones;
 import com.example.klassi_fe.profesor.PerfilProfesor;
+import com.example.klassi_fe.profesor.ProfesorHomeActivity;
 
 
 public class MenuInteracions {
@@ -35,6 +36,9 @@ public class MenuInteracions {
     public void goToHome(Context c, String userRol){
         if(!userRol.equals("Profesor")){
             Intent intent = new Intent(c, HomeActivity.class);
+            c.startActivity(intent);
+        } else {
+            Intent intent = new Intent(c, ProfesorHomeActivity.class);
             c.startActivity(intent);
         }
     }

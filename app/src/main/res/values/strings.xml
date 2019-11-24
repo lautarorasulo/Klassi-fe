@@ -70,6 +70,8 @@
 
     //String de Profesores
     <string name="profesores_welcome">Aqui se encuentran los profesores disponibles para tu busqueda!</string>
+    <string name="home_profesor">Bienvenido Profe !</string>
+    <string name="titulo_home_profesor">Estas son tus ultimas clases aceptadas:</string>
 
     //String de boton
     <string name="Agregar">Agregar</string>

@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.profesor.ProfesorHomeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,16 +31,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private String error404 = "El usuario o password no es correcto, intente nuevamente";
     private static final String SHARED_PREF_NAME = "userID";
-    private static final String SHARED_PREF_ROL = "userRol";
-    private static final String SHARED_PREF_NOTIFICAR = "userNotificar";
-
 
     private static final String KEY_NAME = "key_userID";
     private static final String KEY_NAME_ROL = "key_userROL";
     private static final String KEY_NAME_NOTIFICACION = "key_userNOTIFICACION";
 
     private TextView user,pass;
-    private Button login, register, register2;
+    private Button login, register;
 
 
     @Override
@@ -97,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 loading.dismiss();
-                                Log.d("RESPUESTA LOGIN: ", ""+response);
 
                                 SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
@@ -108,15 +105,21 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString(KEY_NAME_NOTIFICACION, userID[12]);
                                 editor.apply();
 
-                                Intent intent = new Intent(LoginActivity.this ,HomeActivity.class);
-                                startActivity(intent);
+                                if( "Profesor".equals(userID[9])){
+                                    Intent intent = new Intent(LoginActivity.this , ProfesorHomeActivity.class);
+                                    startActivity(intent);
+                                    if(":false}}".equals(userID[12])){
+                                        Toast.makeText(getApplicationContext(), "Tiene clases para confirmar", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Intent intent = new Intent(LoginActivity.this ,HomeActivity.class);
+                                    startActivity(intent);
+                                }
 
-                                Toast.makeText(getApplicationContext(), "Se logeo correctamente", Toast.LENGTH_LONG).show();
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("ERROR VOLLEY: ", ""+error +"  ---- " +error.getMessage());
                         loading.dismiss();
                         if(error.networkResponse.statusCode == 404)
                         {
@@ -140,17 +143,12 @@ public class LoginActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 requestQueue.add(stringRequest);
             //////////////////////
-            //Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            //startActivity(intent);
         }
-
     }
-
 
     @Override
     protected void onPause() {
         super.onPause();
         finish();
     }
-
 }

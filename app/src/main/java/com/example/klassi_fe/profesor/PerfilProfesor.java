@@ -49,7 +49,7 @@ public class PerfilProfesor extends AppCompatActivity {
     private String userId, userRol, userNotificacion;
     private TextView nombre,apellido,mail,comentarios;
     private Toolbar toolbar;
-    private Button setimage, setHorarios, btnAtras;
+    private Button setimage, setHorarios, btnAtras, setMaterias;
     private ImageView perfil;
     private MenuInteracions minteraction;
     private JSONArray horas;
@@ -66,6 +66,7 @@ public class PerfilProfesor extends AppCompatActivity {
         apellido = (TextView) findViewById(R.id.perfil_profesor_apellido);
         mail = (TextView) findViewById(R.id.pnt_cnf2_mailal);
         setHorarios = (Button) findViewById(R.id.perprof_btn_horario);
+        setMaterias = (Button) findViewById(R.id.perprof_btn_materias);
         btnAtras = (Button) findViewById(R.id.perfil_profesor_atras);
 
         // datos de mi usuario logeado
@@ -78,8 +79,9 @@ public class PerfilProfesor extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
 
-        setHorarios();
         CargoPerfil();
+        setHorarios();
+        setMaterias();
         btnAtrasAction();
     }
 
@@ -103,6 +105,16 @@ public class PerfilProfesor extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setMaterias(){
+        setMaterias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agregarMateria();
+            }
+        });
+
     }
 
     private void CargoPerfil() {
@@ -140,19 +152,17 @@ public class PerfilProfesor extends AppCompatActivity {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
 
-        Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
 
         if(imagenperfil != null ){
             perfil.setImageBitmap(imagenperfil);
         }
-
     }
 
     public void mapearDatos(JSONObject profe) throws JSONException {
-        nombre.setText(profe.optJSONObject("result").getString("nombre"));
-        apellido.setText(profe.optJSONObject("result").getString("apellido"));
-        mail.setText(profe.optJSONObject("result").getString("email"));
-        comentarios.setText(profe.optJSONObject("result").getString("descripcion"));
+        nombre.setText("Nombre: \n" + profe.optJSONObject("result").getString("nombre"));
+        apellido.setText("Apellido: \n" +profe.optJSONObject("result").getString("apellido"));
+        mail.setText("Email: \n" +profe.optJSONObject("result").getString("email"));
+        comentarios.setText("Comentario: \n" +profe.optJSONObject("result").getString("descripcion"));
         horas = profe.optJSONObject("result").getJSONArray("horas");
     }
 
@@ -178,12 +188,9 @@ public class PerfilProfesor extends AppCompatActivity {
             FileOutputStream out = new FileOutputStream(savefile);
             imagenasalvar.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.close();
-            Log.d("Image de save", "SaveImage: Grabo la imagen???" + savefile.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -214,6 +221,148 @@ public class PerfilProfesor extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void postMateria(String materia, String escolaridad, boolean agregar){
+
+    }
+
+
+    private void selectEscolaridad(final String materia) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(PerfilProfesor.this, R.style.DialogTheme);
+
+        final ArrayList<String> addEscolaridad = new ArrayList<String>();
+        final ArrayList<String> deleteEscolaridad = new ArrayList<String>();
+
+        final String[] escolaridad = new String[]{
+                "Primario",
+                "Secundario",
+                "Terciario",
+        };
+
+        final boolean[] checkedEscolaridad = new boolean[]{
+                false,
+                false,
+                false
+        };
+
+        final List<String> escolaridadList = Arrays.asList(escolaridad);
+
+        builder.setMultiChoiceItems(escolaridad, checkedEscolaridad, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                // Update de los estados de cada horario
+                checkedEscolaridad[which] = isChecked;
+
+                // Get the current focused item
+                String currentItem = escolaridadList.get(which);
+                if(checkedEscolaridad[which]){
+                    addEscolaridad.add(currentItem);
+                } else {
+                    deleteEscolaridad.add(currentItem);
+                }
+            }
+        });
+
+        // Setear si es cancelable o no
+        builder.setCancelable(true);
+
+        // Titulo del dialog
+        builder.setTitle("Seleccionar Escolaridad");
+
+        // Boton guardar
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(int i = 0; i < addEscolaridad.size(); i++){
+                    postMateria(materia, addEscolaridad.get(i), true);
+                }
+                for(int j = 0; j < deleteEscolaridad.size(); j++){
+                    postMateria(materia, deleteEscolaridad.get(j), false);
+
+                }
+            }
+        });
+        // Boton cancelar
+        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click the neutral button
+            }
+        });
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+
+
+    }
+
+    private void agregarMateria(){
+        final ArrayList<String> addMateria = new ArrayList<String>();
+        final ArrayList<String> deleteMateria = new ArrayList<String>();
+
+        // Construyo un AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(PerfilProfesor.this, R.style.DialogTheme);
+
+        final String[] materias = new String[]{
+                "Matematica",
+                "Lengua",
+                "Qumica",
+                "Literatura",
+                "Fisica",
+                "Naturales",
+                "Sociales"
+        };
+
+        final boolean[] checkedMaterias = new boolean[]{
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+        };
+
+        final List<String> materiasList = Arrays.asList(materias);
+
+        builder.setMultiChoiceItems(materias, checkedMaterias, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                // Update de los estados de cada horario
+                checkedMaterias[which] = isChecked;
+                // Get the current focused item
+                String currentItem = materiasList.get(which);
+
+                selectEscolaridad(currentItem);
+            }
+        });
+
+        // Setear si es cancelable o no
+        builder.setCancelable(true);
+
+        // Titulo del dialog
+        builder.setTitle("Agregar Materia");
+
+        // Boton guardar
+       /* builder.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectEscolaridad(addMateria, deleteMateria);
+            }
+        });*/
+        // Boton cancelar
+        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click the neutral button
+            }
+        });
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
     }
 
     public void setearHorarios() throws JSONException {
@@ -261,7 +410,6 @@ public class PerfilProfesor extends AppCompatActivity {
 
             while( j < horas.length() && flag ){
                 if(horarios[i].equals(horas.get(j).toString())){
-                    Log.d("ENTRO AL IF", "HORARIO: " + horarios[i]);
                     checkedHorarios[i] = true;
                     flag = false;
                 } else {
@@ -280,14 +428,11 @@ public class PerfilProfesor extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-
-
                 // Update de los estados de cada horario
                 checkedHorarios[which] = isChecked;
 
                 // Get the current focused item
                 String currentItem = horariosList.get(which);
-                //Log.d("SELECCION", " : " + currentItem +" " + checkedHorarios[which]);
                 if(checkedHorarios[which]){
                     addHora.add(currentItem);
                 } else {
@@ -309,17 +454,14 @@ public class PerfilProfesor extends AppCompatActivity {
         builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               //Log.d("ADD HORA: ", " = " + addHora);
                for(int i = 0; i < addHora.size(); i++){
                    agregarHorarios(addHora.get(i), true);
                }
                for(int j = 0; j < deleteHora.size(); j++){
                    agregarHorarios(deleteHora.get(j), false);
-                   /** HACER METODO PARA ELIMINAR HORAS*/
                }
             }
         });
-
         // Boton cancelar
         builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
@@ -327,7 +469,6 @@ public class PerfilProfesor extends AppCompatActivity {
                 // Do something when click the neutral button
             }
         });
-
         AlertDialog dialog = builder.create();
         // Display the alert dialog on interface
         dialog.show();
@@ -339,8 +480,10 @@ public class PerfilProfesor extends AppCompatActivity {
 
         if(addHora){
             url = getString(R.string.addHora);
+           // url = "http://192.168.100.116:3001/api/profesor/addhoras";
         } else {
             url = getString(R.string.deleteHora);
+           // url = "http://192.168.100.116:3001/api/profesor/removeHora";
         }
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
 
@@ -348,6 +491,11 @@ public class PerfilProfesor extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
+                try {
+                    horas = new JSONObject(response).optJSONObject("result").getJSONArray("horas");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

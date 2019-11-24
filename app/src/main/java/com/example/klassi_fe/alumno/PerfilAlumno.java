@@ -141,10 +141,10 @@ public class PerfilAlumno extends AppCompatActivity {
     }
 
     public void mapearDatos(JSONObject profe) throws JSONException {
-        nombre.setText(profe.optJSONObject("result").getString("nombre"));
-        apellido.setText(profe.optJSONObject("result").getString("apellido"));
-        mail.setText(profe.optJSONObject("result").getString("email"));
-        buscoprofe.setText(profe.optJSONObject("result").getString("descripcion"));
+        nombre.setText("Nombre: \n" +profe.optJSONObject("result").getString("nombre"));
+        apellido.setText("Apellido: \n" +profe.optJSONObject("result").getString("apellido"));
+        mail.setText("Email: \n" +profe.optJSONObject("result").getString("email"));
+        buscoprofe.setText("Comentario: \n" +profe.optJSONObject("result").getString("descripcion"));
     }
 
 
