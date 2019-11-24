@@ -41,8 +41,8 @@
     <string name="log_welcome">Bienvenido</string>
     <string name="log_user">Usuario</string>
     <string name="log_password">Contraseña</string>
-    <string name="log_button_go">Login</string>
-    <string name="log_regmessage">Eres nuevo? Registrate</string>
+    <string name="log_button_go">Ingresar</string>
+    <string name="log_regmessage">¿Eres nuevo? Registrate</string>
     <string name="log_g">G</string>
     <string name="log_f">F</string>
     <string name="log_hint_user">Ingresa Usuario</string>
@@ -77,6 +77,8 @@
     <string name="Agregar">Agregar</string>
 
     //String de Clases
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_rechazar">Rechazar</string>
 
 
 </resources>

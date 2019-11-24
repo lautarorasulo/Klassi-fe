@@ -7,11 +7,20 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Profesor extends ArrayList<Parcelable> implements Parcelable {
+    String _id;
     String nombre;
     String apellido;
     String mail;
     String descripcion;
     Boolean premium;
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String id) {
+        this._id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -57,6 +66,7 @@ public class Profesor extends ArrayList<Parcelable> implements Parcelable {
 
 
     public Profesor(Parcel in) {
+        this._id = in.readString();
         this.nombre = in.readString();
         this.apellido = in.readString();
         this.mail = in.readString();
@@ -74,6 +84,7 @@ public class Profesor extends ArrayList<Parcelable> implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+        dest.writeString(this._id);
         dest.writeString(this.nombre);
         dest.writeString(this.apellido);
         dest.writeString(this.mail);

@@ -34,6 +34,8 @@ public class ProfesoresActivity extends AppCompatActivity {
     public static String fecha;
     public static String hora;
     public static String zona;
+    public static String idZona;
+    public static String idMateria;
 
 
     @Override
@@ -53,6 +55,8 @@ public class ProfesoresActivity extends AppCompatActivity {
         fecha = bundle.getString("fecha");
         hora = bundle.getString("hora");
         zona = bundle.getString("zona");
+        idZona = bundle.getString("idZona");
+        idMateria = bundle.getString("idMateria");
 
         adapterListaProfesores = new AdapterListaProfesores(this, mysProfesores);
         listaProfesores = (ListView) findViewById(R.id.lista_profesores);

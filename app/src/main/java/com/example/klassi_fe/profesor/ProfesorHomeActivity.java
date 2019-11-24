@@ -105,7 +105,7 @@ public class ProfesorHomeActivity extends AppCompatActivity {
     private void fillClasesOnTable() {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://192.168.100.116:3001/api/getClasesNotificadas/" + userId, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.clasesNotificadas) + userId, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 loading.dismiss();
@@ -127,7 +127,6 @@ public class ProfesorHomeActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
-
 
 
     @Override

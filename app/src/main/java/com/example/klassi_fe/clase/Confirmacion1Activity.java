@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -70,7 +71,7 @@ public class Confirmacion1Activity extends AppCompatActivity {
         //Tambien voy a buscar si esta la imagen del usuario grabada en el dispositivo. en caso
         //que este se va a poner como imagen de perfil, en caso que no, se mostraravacio.
 
-
+        Log.d("MY PROFESOR", " = " + myProfesor.getId());
         nombre.setText("Nombre: "+ myProfesor.getNombre());
         apellido.setText("Apellido: "+ myProfesor.getApellido());
         mail.setText("Mail: " + myProfesor.getMail());
@@ -83,14 +84,6 @@ public class Confirmacion1Activity extends AppCompatActivity {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-
-        //String imagepath = getFilesDir() + "/imagen"+123+".jpg";
-        //Bitmap imagenperfil = BitmapFactory.decodeFile(imagepath,options);
-
-        //Log.d("imagen path de BusquedaActivity", "cargoperfil: "+ imagepath);
-        //if(imagenperfil != null ){
-        //    perfil.setImageBitmap(imagenperfil);
-        //}
 
     }
 

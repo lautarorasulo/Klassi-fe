@@ -17,20 +17,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.Profesor;
+import com.example.klassi_fe.objetos.Zona;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfirmarClaseActivity extends AppCompatActivity {
 
@@ -71,7 +77,6 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         buscarDatosAlumno();
-        // CargoPerfiles();
         cargoDatosClase();
         Confirmar();
         Cancelar();
@@ -104,7 +109,6 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
 
     public void mapearDatos(JSONObject user) throws JSONException {
         nombreal.setText(user.optJSONObject("result").getString("nombre"));
-       // apellido.setText(user.optJSONObject("result").getString("apellido"));
         mailal.setText(user.optJSONObject("result").getString("email"));
         nombreprof.setText(myProfesor.getNombre());
         mailprof.setText(myProfesor.getMail());
@@ -139,14 +143,45 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
         lugar.setText(ProfesoresActivity.zona);
     }
 
+    private void postClase(){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.generarClase), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loading.dismiss();
+                Intent intent = new Intent(ConfirmarClaseActivity.this , HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){
+            protected Map<String, String> getParams() {
+                Map<java.lang.String, java.lang.String> params = new HashMap<>();
+                params.put("idAlumno", userId);
+                params.put("idProfesor", myProfesor.getId());
+                params.put("idMateria", ProfesoresActivity.idMateria);
+                params.put("idZona", ProfesoresActivity.idZona);
+                params.put("fecha", ProfesoresActivity.fecha);
+                params.put("hora", ProfesoresActivity.hora);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     private void Confirmar(){
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //aca falta enviar la clase al backend
-                Intent intent = new Intent(ConfirmarClaseActivity.this , HomeActivity.class);
-                startActivity(intent);
-                finish();
+                postClase();
             }
         });
     }

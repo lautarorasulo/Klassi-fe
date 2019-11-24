@@ -66,6 +66,8 @@ public class BusquedaActivity extends AppCompatActivity {
     private int mMonth;
     private int mDay;
     private TextView txtFecha;
+    private String valorMateria;
+    private String valorZona;
 
 
     @Override
@@ -171,7 +173,7 @@ public class BusquedaActivity extends AppCompatActivity {
             }
         }
 
-        valormateria = valmatloop;
+        valorMateria = valmatloop;
 
         pos = spinnerzona.getSelectedItemPosition();
         valorzona = spinnerzona.getItemAtPosition(pos).toString();
@@ -201,7 +203,7 @@ public class BusquedaActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() {
                 Map<java.lang.String, java.lang.String> params = new HashMap<>();
                 params.put("idZona",buscarIdZona((ArrayList<Zona>) myZonas, valorzona));
-                params.put("idMateria", valormateria);
+                params.put("idMateria", valorMateria);
                 params.put("fecha", valorfecha);
                 params.put("hora", valorhora);
                 return params;
@@ -226,6 +228,7 @@ public class BusquedaActivity extends AppCompatActivity {
             myProfesor.setMail(json_data.getString("email"));
             myProfesor.setDescripcion(json_data.getString("descripcion"));
             myProfesor.setPremium(json_data.getBoolean("premiun"));
+            myProfesor.setId(json_data.getString("_id"));
 
             mysProfesores.add(myProfesor);
         }
@@ -239,6 +242,8 @@ public class BusquedaActivity extends AppCompatActivity {
         bundle.putString("fecha", txtFecha.getText().toString());
         bundle.putString("hora", spinnerhora.getItemAtPosition(spinnerhora.getSelectedItemPosition()).toString());
         bundle.putString("zona",  spinnerzona.getItemAtPosition(spinnerzona.getSelectedItemPosition()).toString());
+        bundle.putString("idZona", valorZona);
+        bundle.putString("idMateria", valorMateria);
         intent.putExtras(bundle);
         startActivity(intent);
 
@@ -252,6 +257,7 @@ public class BusquedaActivity extends AppCompatActivity {
         while(i < myArray.size()){
 
             if(myArray.get(i).getNombre().equals(zonaSeleccionada)){
+                valorZona = myArray.get(i).get_id();
                 return myArray.get(i).get_id();
             }else{
                 i++;

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class PerfilProfesor extends AppCompatActivity {
     private ImageView perfil;
     private MenuInteracions minteraction;
     private JSONArray horas;
+    private JSONArray profesorMaterias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class PerfilProfesor extends AppCompatActivity {
         mail = (TextView) findViewById(R.id.pnt_cnf2_mailal);
         setHorarios = (Button) findViewById(R.id.perprof_btn_horario);
         setMaterias = (Button) findViewById(R.id.perprof_btn_materias);
+        setimage = (Button) findViewById(R.id.perfil_profesor_set_imagen);
         btnAtras = (Button) findViewById(R.id.perfil_profesor_atras);
 
         // datos de mi usuario logeado
@@ -83,6 +86,17 @@ public class PerfilProfesor extends AppCompatActivity {
         setHorarios();
         setMaterias();
         btnAtrasAction();
+        CrearImagen();
+    }
+
+    private void CrearImagen() {
+        setimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,0);
+            }
+        });
     }
 
     public void btnAtrasAction(){
@@ -111,7 +125,11 @@ public class PerfilProfesor extends AppCompatActivity {
         setMaterias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                agregarMateria();
+                try {
+                    agregarMateria();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -164,6 +182,9 @@ public class PerfilProfesor extends AppCompatActivity {
         mail.setText("Email: \n" +profe.optJSONObject("result").getString("email"));
         comentarios.setText("Comentario: \n" +profe.optJSONObject("result").getString("descripcion"));
         horas = profe.optJSONObject("result").getJSONArray("horas");
+        profesorMaterias = profe.optJSONObject("result").getJSONArray("materias");
+
+        Log.d("PROFESOR COMPLETO : ", " = " + profe);
     }
 
     @Override
@@ -298,7 +319,7 @@ public class PerfilProfesor extends AppCompatActivity {
 
     }
 
-    private void agregarMateria(){
+    private void agregarMateria() throws JSONException {
         final ArrayList<String> addMateria = new ArrayList<String>();
         final ArrayList<String> deleteMateria = new ArrayList<String>();
 
@@ -324,6 +345,20 @@ public class PerfilProfesor extends AppCompatActivity {
                 false,
                 false
         };
+
+        for(int i = 0; i < materias.length; i++){
+            int j = 0;
+            boolean flag = true;
+
+            while( j < profesorMaterias.length() && flag ){
+                if(materias[i].equals(profesorMaterias.optJSONObject(j).getString("nombre").toString())){
+                    checkedMaterias[i] = true;
+                    flag = false;
+                } else {
+                    j++;
+                }
+            }
+        }
 
         final List<String> materiasList = Arrays.asList(materias);
 

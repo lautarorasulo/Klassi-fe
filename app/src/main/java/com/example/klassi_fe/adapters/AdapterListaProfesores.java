@@ -52,6 +52,7 @@ public class AdapterListaProfesores extends BaseAdapter {
         final Profesor profesor = (Profesor) getItem(position);
         nombre.setText(profesor.getNombre());
 
+
         ver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
