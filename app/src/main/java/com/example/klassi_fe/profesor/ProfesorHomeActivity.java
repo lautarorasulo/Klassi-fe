@@ -87,7 +87,24 @@ public class ProfesorHomeActivity extends AppCompatActivity {
     }
 
     private void CargarLinerLayout(){
+        int i = 0;
+
         LayoutInflater inflater = LayoutInflater.from(this);
+
+        while ( i < mysClases.size() && i < 3 ){
+            ObjetoClase clase = mysClases.get(i);
+            View view  = inflater.inflate(R.layout.clases_notificadas_linear_horizontal, clasesNotificadas, false);
+            TextView nombreProfesor = view.findViewById(R.id.nombre_profesor);
+            TextView zona = view.findViewById(R.id.zona);
+            TextView fechaHora = view.findViewById(R.id.fecha);
+
+            nombreProfesor.setText(clase.getAlumno());
+            zona.setText(clase.getZona());
+            fechaHora.setText(clase.getHorario());
+            clasesNotificadas.addView(view);
+            i++;
+        }
+      /*
         if(mysClases.size() < 3){
             for (int i = 0; i < mysClases.size(); i++) {
                 ObjetoClase clase = mysClases.get(i);
@@ -114,7 +131,7 @@ public class ProfesorHomeActivity extends AppCompatActivity {
                 fechaHora.setText(clase.getHorario());
                 clasesNotificadas.addView(view);
             }
-        }
+        }*/
     }
 
     private void showListView(JSONObject obj) throws JSONException {

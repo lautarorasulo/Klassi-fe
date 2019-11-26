@@ -91,12 +91,12 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
                 myClase.setHorario("Horario: "+json_data.getString("fecha") +" - "+(json_data.getString("hora")));
                 myClase.setMateria("Materia: "+json_data.getString("materia"));
                 myClase.setZona("Zona: "+json_data.getString("zona"));
-
                 mysClases.add(myClase);
-
             }
+
             AdapterClasesPendientes adapterListaProfesores = new AdapterClasesPendientes(this, mysClases);
             listView.setAdapter(adapterListaProfesores);
+            
         }catch (Exception ex){
             Toast.makeText(this, "Error carga lista: No hay clases pendientes", Toast.LENGTH_LONG).show();
         }finally {

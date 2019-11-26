@@ -27,11 +27,14 @@ public class AdapterClasesPendientes extends BaseAdapter {
 
     Context context;
     ArrayList<ObjetoClase> clases;
+    AdapterClasesPendientes adapter;
+    ObjetoClase clase;
 
 
     public AdapterClasesPendientes(Context c, ArrayList<ObjetoClase> p){
         this.context = c;
         this.clases = p;
+        this.adapter = this;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class AdapterClasesPendientes extends BaseAdapter {
         Button btnAceptar = convertView.findViewById(R.id.clases_prf_btn_aceptar);
         Button btnRechazar = convertView.findViewById(R.id.clases_prf_btn_rechazar);
 
-        final ObjetoClase clase = (ObjetoClase) getItem(position);
+        clase = (ObjetoClase) getItem(position);
 
         alumno.setText(clase.alumno);
         fecha.setText(clase.horario);
@@ -76,6 +79,8 @@ public class AdapterClasesPendientes extends BaseAdapter {
                     public void onResponse(JSONObject response) {
                         loading.dismiss();
                         Toast.makeText(context, "Clase aceptada con exito", Toast.LENGTH_LONG).show();
+                        clases.remove(clase);
+                        adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -99,6 +104,8 @@ public class AdapterClasesPendientes extends BaseAdapter {
                     public void onResponse(String response) {
                         loading.dismiss();
                         Toast.makeText(context, "Clase rechazada con exito", Toast.LENGTH_LONG).show();
+                        clases.remove(clase);
+                        adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override
