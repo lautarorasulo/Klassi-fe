@@ -187,6 +187,8 @@ public class ProfesorHomeActivity extends AppCompatActivity {
                 loading.dismiss();
                 try {
                     zonas = new JSONObject(response).optJSONObject("result").getJSONArray("zonas");
+                    finish();
+                    startActivity(getIntent());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -224,26 +224,26 @@ public class PerfilProfesor extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        perfil.setImageBitmap(bitmap);
-        SaveImage(bitmap);
+       // Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+       // perfil.setImageBitmap(bitmap);
+       // SaveImage(bitmap);
     }
 
     private void SaveImage(Bitmap imagenasalvar) {
 
         // salva la imagen que el usuario acaba de sacar.
-        File file;
-        file = getFilesDir();
-        File savefile = new File(file, "imagen" + 123 + ".jpg");
-        if (savefile.exists()) {
-            savefile.delete();
-        }
+       // File file;
+       // file = getFilesDir();
+      //  File savefile = new File(file, "imagen" + 123 + ".jpg");
+      //  if (savefile.exists()) {
+      //      savefile.delete();
+      //  }
         try {
-            FileOutputStream out = new FileOutputStream(savefile);
-            imagenasalvar.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.close();
+       //     FileOutputStream out = new FileOutputStream(savefile);
+        //    imagenasalvar.compress(Bitmap.CompressFormat.JPEG, 90, out);
+        //    out.close();
         } catch (Exception e) {
-            e.printStackTrace();
+        //    e.printStackTrace();
         }
     }
 
@@ -427,8 +427,6 @@ public class PerfilProfesor extends AppCompatActivity {
         for(int i = 0; i < materias.length; i++){
             int j = 0;
             boolean flag = true;
-            Log.d("profesorMaterias ", " = " + profesorMaterias.getJSONObject(i).getString("nombre"));
-            //profesorMaterias.optJSONObject(i).getString("nombre");
             while( j < profesorMaterias.length() && flag ){
                 if(materias[i].equals(profesorMaterias.getJSONObject(j).getString("nombre"))){
                     checkedMaterias[i] = true;
