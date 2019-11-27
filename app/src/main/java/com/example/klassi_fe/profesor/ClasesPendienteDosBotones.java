@@ -1,6 +1,7 @@
 package com.example.klassi_fe.profesor;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.adapters.AdapterClasesPendientes;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.ObjetoClase;
 
@@ -68,7 +71,10 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+
+                Intent intent = new Intent(ClasesPendienteDosBotones.this, ProfesorHomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -156,6 +162,11 @@ public class ClasesPendienteDosBotones extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(ClasesPendienteDosBotones.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

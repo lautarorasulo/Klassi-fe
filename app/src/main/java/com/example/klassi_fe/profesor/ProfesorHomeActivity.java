@@ -1,33 +1,47 @@
 package com.example.klassi_fe.profesor;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.ObjetoClase;
+import com.example.klassi_fe.objetos.Zona;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfesorHomeActivity extends AppCompatActivity {
 
@@ -35,6 +49,7 @@ public class ProfesorHomeActivity extends AppCompatActivity {
     private String userId, userRol, userNotificacion;
     private Toolbar toolbar;
     private LinearLayout clasesNotificadas, linearMaterias, linearZonas;
+    private Button addZonas;
     private ArrayList<ObjetoClase> mysClases;
     JSONArray materias;
     JSONArray zonas;
@@ -50,6 +65,7 @@ public class ProfesorHomeActivity extends AppCompatActivity {
         userRol = sp.getString(minteraction.KEY_NAME_ROL, null);
         userId = sp.getString(minteraction.KEY_NAME, null);
         userNotificacion = sp.getString(minteraction.KEY_NAME_NOTIFICACION, null);
+        addZonas = (Button) findViewById(R.id.add_zona);
 
         clasesNotificadas = (LinearLayout) findViewById(R.id.profesor_home_clases_notificadas);
         linearMaterias = (LinearLayout) findViewById(R.id.layout_materias);
@@ -60,6 +76,141 @@ public class ProfesorHomeActivity extends AppCompatActivity {
 
         fillClasesOnTable();
         buscarInformacionAdicional();
+        agregarZona();
+    }
+
+    private void agregarZona(){
+        addZonas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    agregarZonaDialog ();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void agregarZonaDialog() throws JSONException {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ProfesorHomeActivity.this, R.style.DialogTheme);
+
+        final ArrayList<String> agregarZona = new ArrayList<String>();
+
+        final String[] myZona = new String[]{
+                "Caballito",
+                "Palermo",
+                "Belgrano",
+                "Colegiales",
+                "Saavedra"
+        };
+
+        final boolean[] checkedZona = new boolean[]{
+                false,
+                false,
+                false,
+                false,
+                false
+        };
+
+        for(int i = 0; i < myZona.length; i++){
+            int j = 0;
+            boolean flag = true;
+            //profesorMaterias.optJSONObject(i).getString("nombre");
+            while( j < zonas.length() && flag ){
+                if(myZona[i].equals(zonas.getJSONObject(j).getString("nombre"))){
+                    checkedZona[i] = true;
+                    flag = false;
+                } else {
+                    j++;
+                }
+            }
+        }
+
+        final List<String> zonaList = Arrays.asList(myZona);
+
+        builder.setMultiChoiceItems(myZona, checkedZona, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                // Update de los estados de cada horario
+                checkedZona[which] = isChecked;
+
+                // Get the current focused item
+                String currentItem = zonaList.get(which);
+                if(checkedZona[which]){
+                    agregarZona.add(currentItem);
+                } else {
+
+                }
+            }
+        });
+
+        // Setear si es cancelable o no
+        builder.setCancelable(true);
+
+        // Titulo del dialog
+        builder.setTitle("Seleccionar Escolaridad");
+
+        // Boton guardar
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(int i = 0; i < agregarZona.size(); i++){
+                    agregarZonaPost (agregarZona.get(i));
+                }
+            /*    for(int j = 0; j < deleteEscolaridad.size(); j++){
+                    postMateria(materia, deleteEscolaridad.get(j), false);
+                }*/
+            }
+        });
+        // Boton cancelar
+        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click the neutral button
+            }
+        });
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+
+
+    }
+
+    private void agregarZonaPost (final String nombreZona){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.addZona), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loading.dismiss();
+                try {
+                    zonas = new JSONObject(response).optJSONObject("result").getJSONArray("zonas");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){
+            protected Map<String, String> getParams() {
+                Map<java.lang.String, java.lang.String> params = new HashMap<>();
+                params.put("zona", nombreZona);
+                params.put("idProfesor", userId);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
 
     private void cargarLinearZonas() throws JSONException {
@@ -236,6 +387,11 @@ public class ProfesorHomeActivity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 // minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(ProfesorHomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

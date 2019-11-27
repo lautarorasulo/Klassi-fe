@@ -15,5 +15,8 @@
     <string name="clasesNotificadas">https://klassi-3.herokuapp.com/api/getClasesNotificadas/</string>
     <string name="generarClase">https://klassi-3.herokuapp.com/api/clase</string>
     <string name="informacionAdicional">https://klassi-3.herokuapp.com/api/profesores/format/</string>
+    <string name="goPremium">https://klassi-3.herokuapp.com/api/profesor/goPremiun/</string>
+    <string name="addZona">https://klassi-3.herokuapp.com/api/profesor/addZona</string>
+
 
 </resources>

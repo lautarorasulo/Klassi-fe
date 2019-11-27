@@ -27,7 +27,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.Materia;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.ObjetoClase;
@@ -425,6 +427,11 @@ public class BusquedaActivity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(BusquedaActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

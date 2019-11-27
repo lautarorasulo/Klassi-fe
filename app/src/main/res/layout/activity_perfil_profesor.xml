@@ -127,19 +127,33 @@
 
     <Button
         android:id="@+id/perfil_profesor_atras"
-        android:layout_width="311dp"
-        android:layout_height="41dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="19dp"
         android:background="@drawable/buttons_shape"
         android:text="@string/lista_seleccion_profesor_btn"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/perfil_profesor_premiun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="81dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@+id/perfil_profesor_atras"
+        android:background="@drawable/buttons_shape"
+        android:text="@string/perfil_profesor_premiun_string"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </RelativeLayout>

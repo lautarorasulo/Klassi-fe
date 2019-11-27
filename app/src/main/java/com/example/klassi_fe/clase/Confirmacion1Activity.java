@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.Profesor;
 
@@ -125,6 +127,11 @@ public class Confirmacion1Activity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(Confirmacion1Activity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

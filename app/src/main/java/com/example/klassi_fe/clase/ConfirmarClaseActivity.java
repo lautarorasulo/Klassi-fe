@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.Profesor;
 import com.example.klassi_fe.objetos.Zona;
@@ -221,6 +222,11 @@ public class ConfirmarClaseActivity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(ConfirmarClaseActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

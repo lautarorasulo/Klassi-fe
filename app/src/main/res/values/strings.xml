@@ -75,10 +75,13 @@
     <string name="home_profesor_zonas">Zonas: </string>
     <string name="home_profesor_materias">Materias: </string>
     <string name="home_filtros">Filtros seleccionados:</string>
+    <string name="perfil_profesor_premiun_string">Go Premiun</string>
 
 
     //String de boton
     <string name="Agregar">Agregar</string>
+
+    <string name="add_zona_profesor">Agregar zona</string>
 
     //String de Clases
     <string name="btn_aceptar">Aceptar</string>

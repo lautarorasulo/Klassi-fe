@@ -1,5 +1,6 @@
 package com.example.klassi_fe.clase;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
 import com.example.klassi_fe.adapters.AdapterListaProfesores;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.Profesor;
 
@@ -104,6 +107,11 @@ public class ProfesoresActivity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(ProfesoresActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

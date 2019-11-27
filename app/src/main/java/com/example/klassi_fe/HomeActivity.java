@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.clase.BusquedaActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 import com.example.klassi_fe.objetos.ObjetoClase;
@@ -170,6 +171,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        finish();
     }
 
     @Override
@@ -196,6 +198,11 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                // minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

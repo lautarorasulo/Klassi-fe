@@ -29,7 +29,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.klassi_fe.HomeActivity;
 import com.example.klassi_fe.R;
+import com.example.klassi_fe.autenticacion.LoginActivity;
 import com.example.klassi_fe.materiasActivity;
 import com.example.klassi_fe.objetos.MenuInteracions;
 
@@ -50,7 +52,7 @@ public class PerfilProfesor extends AppCompatActivity {
     private String userId, userRol, userNotificacion;
     private TextView nombre,apellido,mail,comentarios;
     private Toolbar toolbar;
-    private Button setimage, setHorarios, btnAtras, setMaterias;
+    private Button setimage, setHorarios, btnAtras, setMaterias, goPremiun;
     private ImageView perfil;
     private MenuInteracions minteraction;
     private JSONArray horas;
@@ -71,6 +73,7 @@ public class PerfilProfesor extends AppCompatActivity {
         setMaterias = (Button) findViewById(R.id.perprof_btn_materias);
         setimage = (Button) findViewById(R.id.perfil_profesor_set_imagen);
         btnAtras = (Button) findViewById(R.id.perfil_profesor_atras);
+        goPremiun = (Button) findViewById(R.id.perfil_profesor_premiun);
 
         // datos de mi usuario logeado
         SharedPreferences sp = getSharedPreferences(minteraction.SHARED_PREF_NAME, MODE_PRIVATE);
@@ -87,6 +90,7 @@ public class PerfilProfesor extends AppCompatActivity {
         setMaterias();
         btnAtrasAction();
         CrearImagen();
+        hacersePremiun();
     }
 
     private void CrearImagen() {
@@ -106,6 +110,37 @@ public class PerfilProfesor extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void hacersePremiun(){
+        goPremiun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goPremium();
+            }
+        });
+    }
+
+    private void goPremium(){
+        final ProgressDialog loading = ProgressDialog.show(this, "Por favor espere...", "Actualizando datos...", false, false);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(getString(R.string.goPremium) + userId, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Premiun activado con exito", Toast.LENGTH_LONG).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error request "+ error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     private void setHorarios(){
@@ -236,6 +271,11 @@ public class PerfilProfesor extends AppCompatActivity {
                 break;
             case R.id.menu_home:
                 minteraction.goToHome(this,userRol);
+                break;
+            case R.id.menu_logout:
+                Intent intent = new Intent(PerfilProfesor.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
         }
